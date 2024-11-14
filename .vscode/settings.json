@@ -1,0 +1,12 @@
+{
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "[python]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true
+    },
+ "flake8.args": [
+    "--max-line-length=88",
+    "--ignore=E203, F401",
+ ]
+}
