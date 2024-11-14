@@ -9,3 +9,11 @@ Con FT_Form, los staff pueden:
 - Exportar los datos en varios formatos y personalizar la presentación de los gráficos para incluir en reportes o presentaciones.
 
 Este sistema facilita la recolección y el análisis de datos de manera ágil, contribuyendo a mejorar la toma de decisiones en proyectos, eventos y actividades clave de 42 Barcelona.
+
+
+# Debug
+	make
+	make up
+
+	
+

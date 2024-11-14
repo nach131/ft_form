@@ -1,0 +1,26 @@
+{% load static %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block page_title %}{% endblock %}</title>
+  {% comment %} <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}"> {% endcomment %}
+  <link rel="stylesheet" href="{% static  'bootstrap.css' %}">
+  <link href="{% static 'fontawesomefree/all.min.css' %}" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+  {% block content %}
+
+  {% endblock %}
+</body>
+
+<script src="{% static 'bootstrap.bundle.min.js' %}"></script>
+
+</html>

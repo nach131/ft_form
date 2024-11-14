@@ -1,0 +1,4 @@
+flake8==7.1.0
+pyotp==2.9.0
+pytest==8.3.2
+pytest-django==4.8.0
