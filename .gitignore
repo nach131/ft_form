@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.venv
 
 # C extensions
 *.so
@@ -175,4 +176,4 @@ data/certs
 data/certs_home
 data/certs_trans
 data/certs_eric
-.env
+
