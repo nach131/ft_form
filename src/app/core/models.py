@@ -56,7 +56,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_cancel = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
+    is_42_staf = models.BooleanField(default=False)
+
     last_activity = models.DateTimeField(null=True, blank=True)
+
 
     settings = models.OneToOneField(
         SettingsUser, on_delete=models.CASCADE, related_name="user",

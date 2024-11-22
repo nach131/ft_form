@@ -2,6 +2,7 @@
 DATA_DIR = data
 DB_DIR = ${DATA_DIR}/db
 LOG_DIR = ${DATA_DIR}/log
+STATIC_DIR = ${DATA_DIR}/static
 
 DEPLOY ?= false
 
@@ -17,14 +18,13 @@ all: build
 # Target to create directories
 create-dirs:
 	@echo "Creating directories..." 
-	@mkdir -p $(DB_DIR) $(LOG_DIR)
+	@mkdir -p $(DB_DIR) $(LOG_DIR) $(STATIC_DIR)
 
 # Target to download official Docker images
 pull-images:
 	@echo "Pulling official Docker images..."
 	@docker pull python:3.12.4-alpine3.19
 	@docker pull postgres:13-alpine
-	@docker pull redis:7.2
 ifeq ($(DEPLOY), false)
 	@docker pull adminer
 endif
