@@ -2,7 +2,7 @@
 DATA_DIR = data
 DB_DIR = ${DATA_DIR}/db
 LOG_DIR = ${DATA_DIR}/log
-STATIC_DIR = ${DATA_DIR}/static
+STATIC_DIR = ${DATA_DIR}/static/media
 
 DEPLOY ?= false
 
