@@ -57,6 +57,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_cancel = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_42_staf = models.BooleanField(default=False)
+    coalition = models.CharField(max_length=40, unique=False)
+    level = models.PositiveIntegerField(default=0)
+    age = models.PositiveIntegerField(default=0)
 
     last_activity = models.DateTimeField(null=True, blank=True)
 
