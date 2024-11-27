@@ -10,6 +10,7 @@ import uuid
 import os
 from django.utils import timezone
 from django.db import models
+from django.contrib.postgres.fields import JSONField
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
@@ -52,14 +53,16 @@ class SettingsUser(models.Model):
 class User(AbstractBaseUser, PermissionsMixin):
     """User in the system."""
     email = models.EmailField(max_length=100, unique=True)
-    name = models.CharField(max_length=100, unique=True)
+    username = models.CharField(max_length=100, unique=True)
     is_active = models.BooleanField(default=True)
     is_cancel = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_42_staf = models.BooleanField(default=False)
-    coalition = models.CharField(max_length=40, unique=False)
+    role = models.CharField(max_length=50,unique=False, blank=True)
+    coalition = JSONField()
     level = models.PositiveIntegerField(default=0)
     age = models.PositiveIntegerField(default=0)
+    image_url = models.URLField(max_length=200, blank=True, null=True)
 
     last_activity = models.DateTimeField(null=True, blank=True)
 
