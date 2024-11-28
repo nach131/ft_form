@@ -1,0 +1,27 @@
+{% load static %}
+{% load i18n %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>500</title>
+    <link rel="stylesheet" href="{% static  '/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static  '/form/form.css' %}">
+
+</head>
+
+<body>
+    <canvas id="particleCanvas"></canvas>
+    
+    <div class="container text-center pt-5">
+        <h1 class="display-1 text-secondary">ERROR 500!</h1>
+        <p class="lead pb-4  text-secondary">{% trans "Sorry, Internal Server." %}</p>
+        <a href="/" class="btn btn-primary">{% trans "Go Home" %}</a>
+    </div>
+<script src="{% static '/start/script.js' %}"></script>
+<script src="{% static 'bootstrap.bundle.min.js' %}"></script>
+
+    </body>
+
+</html>
