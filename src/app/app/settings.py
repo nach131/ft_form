@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +30,7 @@ DOMAIN = os.environ.get('DOMAIN', '')
 
 if DEBUG:
     SITE_URL = 'http://localhost:8000'
-    REDIRECT_URL = 'http://localhost:8000/login/42'
+    REDIRECT_URL = 'http://localhost:8000/login/callback'
     URL_USER = os.environ.get('URL_DEBUG')
 else:
     SITE_URL = 'http://transcendence.com.de'
@@ -73,6 +74,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     'drf_spectacular',
     'core',
     'web',
@@ -113,6 +115,22 @@ TEMPLATES = [
 WSGI_APPLICATION = 'app.wsgi.application'
 # Channels
 ASGI_APPLICATION = "app.asgi.application"
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=300),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False, #what is this ?
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+}
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
@@ -193,10 +211,13 @@ STATIC_ROOT = '/vol/web/static'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'core.User'
-
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'core.authentication.Intra42Authentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
 }
 
 SPECTACULAR_SETTINGS = {
@@ -205,10 +226,12 @@ SPECTACULAR_SETTINGS = {
 
 LOGIN_URL = '/login/'
 
+AUTH_USER_MODEL = 'core.User'
 
 # 42 USER API
 UID = os.environ.get('UID')
 SECRET = os.environ.get('SECRET')
+REDIRECT_URI = os.environ.get('REDIRECT_URI')
 
 # log
 # cambiar DEBUG por WARNING
@@ -244,18 +267,17 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'file'],
-            'level': 'WARNING',
-            'propagate': True,
+            'handlers': ['console'],
+            'level': 'INFO',
         },
         'web': {
-            'handlers': ['console', 'file'],
-            'level': 'WARNING',
+            'handlers': ['console'],
+            'level': 'DEBUG',
             'propagate': False,
         },
-        'game': {
-            'handlers': ['console', 'file'],
-            'level': 'WARNING',
+        'core': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
         }
     },
 }
