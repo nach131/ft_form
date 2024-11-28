@@ -266,18 +266,17 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'file'],
-            'level': 'WARNING',
-            'propagate': True,
+            'handlers': ['console'],
+            'level': 'INFO',
         },
         'web': {
-            'handlers': ['console', 'file'],
-            'level': 'WARNING',
+            'handlers': ['console'],
+            'level': 'DEBUG',
             'propagate': False,
         },
-        'game': {
-            'handlers': ['console', 'file'],
-            'level': 'WARNING',
+        'core': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
         }
     },
 }

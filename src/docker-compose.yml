@@ -65,3 +65,4 @@ volumes:
       type: none
       device: ./data/log
       o: bind
+  
