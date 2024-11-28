@@ -132,3 +132,6 @@ class OptionQuestion(models.Model):
 
     class Meta:
         db_table = 'Option question'
+
+class   SentForm(models.Model):
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
