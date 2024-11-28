@@ -82,7 +82,7 @@ class Callback42API(APIView):
                 'access': str(refresh_token.access_token),
                 'refresh_exp': str(refresh_token["exp"] - datetime.now().timestamp()),
                 'token_exp': str(refresh_token.access_token["exp"] - datetime.now().timestamp()),
-                'username': user.name,
+                'username': user.username,
             }
             
             return JsonResponse(formatResponse)
@@ -95,14 +95,14 @@ def saveUser(token):
         if res.status_code != 200:
             return AnonymousUser()
         data = res.json()
-        exist = User.objects.filter(name=data.get('login')).exists()
+        exist = User.objects.filter(username=data.get('login')).exists()
         if exist:
-            return User.objects.get(name=data.get('login'))
+            return User.objects.get(username=data.get('login'))
         url_coal = "/v2/users/" + data.get('login') + "/coalitions"
         coal_res = get42(url_coal, None, token)
         coal_data = coal_res.json()
         # HERE EXTRACT DATA ABOUT COALITION
-        user = User(name=data.get('login'), is_42_staf=data.get('staff?'), 
+        user = User(username=data.get('login'), is_42_staf=data.get('staff?'), 
                     email=data.get('email'))
         # add coalition, piscine / student / alumni, image
         user.save()
