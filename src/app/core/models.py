@@ -102,50 +102,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 
-# Modelos de respuesta
-
-class CharFieldAnswer(models.Model):
-    """Modelo para respuestas tipo texto."""
-    value = models.CharField(
-        max_length=255, blank=True, null=True,
-        validators=[MinLengthValidator(3)]
-    )
-
-    def __str__(self):
-        return f"CharField Answer: {self.value}"
-
-class BooleanAswer(models.Model):
-    """Modelo para respuestas tipo booleano."""
-    value = models.BooleanField(null=True)
-    
-    def __str__(self):
-        return f"Boolean Answer: {self.value}"
-    
-
-class SingleChoiceAnswer(models.Model):
-    """Modelo para respuestas tipo selección única."""
-    value = models.CharField(max_length=255, blank=True, null=True)
-    
-    def __str__(self):
-        return f"Single Choice Answer: {self.value}"
-
-class Answer(models.Model):
-    """Modelo para representar respuestas a preguntas específicas."""
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="answers"
-    )
-    question = models.ForeignKey(
-        Question, on_delete=models.CASCADE, related_name="answers"
-    )
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    response = GenericForeignKey('content_type', 'object_id')
-    
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Answer from {self.user} to '{self.question}'"
-
 
 class Form(models.Model):
     name = models.CharField(max_length=80, verbose_name='Nombre', blank=False, null=False)
@@ -202,3 +158,71 @@ class   SentForm(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     sended = models.DateTimeField(verbose_name='sended')
     answered = models.BooleanField(verbose_name='answered', default=False)
+
+
+# Modelos de respuesta
+
+class Answer(models.Model):
+    """Modelo para representar respuestas a preguntas específicas."""
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="answers")
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+    # question = models.ForeignKey(
+    #     Question, on_delete=models.CASCADE, related_name="answers"
+    # )
+    # content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    # object_id = models.PositiveIntegerField()
+    # response = GenericForeignKey('content_type', 'object_id')
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Answer from {self.user} to '{self.question}'"
+
+class CharFieldAnswer(models.Model):
+    """Modelo para respuestas tipo texto."""
+    value = models.CharField(
+        max_length=255, blank=True, null=True,
+        validators=[MinLengthValidator(3)]
+    )
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    question_id = models.ForeignKey(TextQuestion, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"CharField Answer: {self.value}"
+
+class BooleanAswer(models.Model):
+    """Modelo para respuestas tipo booleano."""
+    value = models.BooleanField(null=True)
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    question_id = models.ForeignKey(BooleanQuestion, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"Boolean Answer: {self.value}"
+    
+
+class SingleChoiceAnswer(models.Model):
+    """Modelo para respuestas tipo selección única."""
+    value = models.CharField(max_length=255, blank=True, null=True)
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    question_id = models.ForeignKey(OptionQuestion, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"Single Choice Answer: {self.value}"
+
+# class Answer(models.Model):
+#     """Modelo para representar respuestas a preguntas específicas."""
+#     user = models.ForeignKey(
+#         User, on_delete=models.CASCADE, related_name="answers"
+#     )
+#     # question = models.ForeignKey(
+#     #     Question, on_delete=models.CASCADE, related_name="answers"
+#     # )
+#     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+#     object_id = models.PositiveIntegerField()
+#     response = GenericForeignKey('content_type', 'object_id')
+    
+#     created_at = models.DateTimeField(auto_now_add=True)
+
+#     def __str__(self):
+#         return f"Answer from {self.user} to '{self.question}'"
