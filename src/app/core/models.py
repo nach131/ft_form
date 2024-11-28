@@ -118,6 +118,9 @@ class TextQuestion(models.Model):
     class Meta:
         db_table = 'Text question'
 
+    def __str__(self):
+        return self.text
+
 class BooleanQuestion(models.Model):
     order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
     type = 'Boolean question'
@@ -126,6 +129,9 @@ class BooleanQuestion(models.Model):
 
     class Meta:
         db_table = 'Boolean question'
+
+    def __str__(self):
+        return self.text
 
 class OptionQuestion(models.Model):
     order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
@@ -137,5 +143,12 @@ class OptionQuestion(models.Model):
     class Meta:
         db_table = 'Option question'
 
-# class   SentForm(models.Model):
-#     form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.text
+
+class   SentForm(models.Model):
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    sended = models.DateTimeField(verbose_name='sended')
+    answered = models.BooleanField(verbose_name='answered', default=False)

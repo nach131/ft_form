@@ -7,7 +7,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
 
 from core import models
-from .models import Form, TextQuestion, BooleanQuestion, OptionQuestion
+from .models import Form, TextQuestion, BooleanQuestion, OptionQuestion, SentForm
 
 class TextQuestionInLine(admin.TabularInline):
     model = TextQuestion
@@ -30,6 +30,7 @@ admin.site.register(Form, FormAdmin)
 admin.site.register(TextQuestion)
 admin.site.register(BooleanQuestion)
 admin.site.register(OptionQuestion)
+admin.site.register(SentForm)
 
 
 @admin.register(models.User)
