@@ -26,14 +26,14 @@ class SentFormSerializer(ModelSerializer):
         model = SentForm
         fields = ['id', 'form_id', 'user_id', 'created', 'sended', 'text_questions', 'boolean_questions', 'option_questions']
 
-    def get_text_question(self, obj):
+    def get_text_questions(self, obj):
         questions = TextQuestion.objects.filter(form_id = obj.form_id)
         return TextQuestionSerializer(questions, many = True).data
     
-    def get_boolean_question(self, obj):
-        questions = TextQuestion.objects.filter(form_id = obj.form_id)
+    def get_boolean_questions(self, obj):
+        questions = BooleanQuestion.objects.filter(form_id = obj.form_id)
         return TextQuestionSerializer(questions, many = True).data
     
-    def get_option_question(self, obj):
-        questions = TextQuestion.objects.filter(form_id = obj.form_id)
+    def get_option_questions(self, obj):
+        questions = OptionQuestion.objects.filter(form_id = obj.form_id)
         return TextQuestionSerializer(questions, many = True).data

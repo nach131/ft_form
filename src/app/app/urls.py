@@ -7,6 +7,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from core.api.views import SentFormView
 
 
 urlpatterns = [
@@ -18,6 +19,7 @@ urlpatterns = [
         name='api-docs',),
     # path('api/user/', include('user.urls')),
     path('', include('web.urls')),
+    path('api/sent-form/<int:user_id>/<int:sent_form_id>/', SentFormView.as_view(), name='sent_form_detail'),
 
 ]
 
