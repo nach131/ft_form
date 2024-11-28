@@ -96,3 +96,46 @@ class User(AbstractBaseUser, PermissionsMixin):
             settings = SettingsUser.objects.create()
             self.settings = settings
         super(User, self).save(*args, **kwargs)
+
+class Form(models.Model):
+    name = models.CharField(max_length=80, verbose_name='Nombre', blank=False, null=False)
+    favourite = models.BooleanField(verbose_name='Favorito', default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'Forms'
+
+    def __str__(self):
+        return self.name
+
+class TextQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'Text question'
+    text = models.CharField(max_length=250, verbose_name='Pregunta', blank=False, null=False)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'Text question'
+
+class BooleanQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'Boolean question'
+    text = models.CharField(max_length=250, verbose_name='Pregunta', blank=False, null=False)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'Boolean question'
+
+class OptionQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'Option question'
+    text = models.CharField(max_length=250, verbose_name='Pregunta', blank=False, null=False)
+    options = models.JSONField(default=dict)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'Option question'
+
+# class   SentForm(models.Model):
+#     form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
