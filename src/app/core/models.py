@@ -59,7 +59,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_42_staf = models.BooleanField(default=False)
     role = models.CharField(max_length=50,unique=False, blank=True)
-    coalition = JSONField()
     level = models.PositiveIntegerField(default=0)
     age = models.PositiveIntegerField(default=0)
     image_url = models.URLField(max_length=200, blank=True, null=True)
