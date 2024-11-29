@@ -18,6 +18,9 @@ from django.contrib.auth.models import (
 )
 
 import secrets
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+from django.core.validators import MinLengthValidator
 
 
 class UserManager(BaseUserManager):
@@ -93,3 +96,50 @@ class User(AbstractBaseUser, PermissionsMixin):
             settings = SettingsUser.objects.create()
             self.settings = settings
         super(User, self).save(*args, **kwargs)
+
+
+
+# Modelos de respuesta
+
+class CharFieldAnswer(models.Model):
+    """Modelo para respuestas tipo texto."""
+    value = models.CharField(
+        max_length=255, blank=True, null=True,
+        validators=[MinLengthValidator(3)]
+    )
+
+    def __str__(self):
+        return f"CharField Answer: {self.value}"
+
+class BooleanAswer(models.Model):
+    """Modelo para respuestas tipo booleano."""
+    value = models.BooleanField(null=True)
+    
+    def __str__(self):
+        return f"Boolean Answer: {self.value}"
+    
+
+class SingleChoiceAnswer(models.Model):
+    """Modelo para respuestas tipo selección única."""
+    value = models.CharField(max_length=255, blank=True, null=True)
+    
+    def __str__(self):
+        return f"Single Choice Answer: {self.value}"
+
+class Answer(models.Model):
+    """Modelo para representar respuestas a preguntas específicas."""
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="answers"
+    )
+    question = models.ForeignKey(
+        Question, on_delete=models.CASCADE, related_name="answers"
+    )
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    response = GenericForeignKey('content_type', 'object_id')
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Answer from {self.user} to '{self.question}'"
+
