@@ -31,6 +31,7 @@ logger = logging.getLogger(__name__)
 @api_view(['GET'])
 def redirect_api(request):
     state = gen_state()
+    logger.info("Redirect URI: %s", settings.REDIRECT_URI)
     go_to_api = (
         "https://api.intra.42.fr/oauth/authorize"
         f"?client_id={settings.UID}"
@@ -39,6 +40,7 @@ def redirect_api(request):
         f"&scope=public"
         f"&state={state}"
     )
+    logger.info(f"Redirect URL: {go_to_api}")
     return redirect(go_to_api)
 
 def gen_state():
@@ -50,6 +52,7 @@ class Callback42API(APIView):
 #       body = json.loads(request.body.decode('utf-8'))
         code = request.GET.get('code')
         state = request.GET.get('state')
+        logger.info(f"Code: {code}, State: {state}")
         if not state or not code:
             raise AuthenticationFailed("Invalid authentication parameters")
         # response = {'response': 'POST'}
