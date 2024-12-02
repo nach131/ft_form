@@ -20,3 +20,6 @@ def home(request):
 
 def Cheat(request):
     return render(request, "cheat.html")
+
+def Login(request):
+    return render(request, "login.html")
