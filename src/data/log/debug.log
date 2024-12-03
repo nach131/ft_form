@@ -52,3 +52,31 @@ WARNING 2024-12-03 18:23:57,739 log Bad Request: /login/callback
 WARNING 2024-12-03 18:23:57,740 basehttp "GET /login/callback?code=9c5948e802dbdcd8e800eadd78d1286afedc47ef71687cbbbe8b28cfc8d6eaf6&state=0BExbqu3NPB1vhU5 HTTP/1.1" 400 46
 WARNING 2024-12-03 18:24:31,158 log Bad Request: /login/callback
 WARNING 2024-12-03 18:24:31,159 basehttp "GET /login/callback?code=b89eb9a5dbc1c460fa86ee370159e89e84a88b34fb55fbd04a0d2dcba1a83bf5&state=7WnDdXuR36OtH7xS HTTP/1.1" 400 46
+WARNING 2024-12-03 20:35:16,386 basehttp "GET /static/static/ HTTP/1.1" 404 1790
+WARNING 2024-12-03 20:36:36,950 basehttp "GET /static/static/ HTTP/1.1" 404 1790
+WARNING 2024-12-03 20:46:26,899 basehttp "GET /static/static/ HTTP/1.1" 404 1790
+WARNING 2024-12-03 20:46:45,494 log Not Found: /login/
+WARNING 2024-12-03 20:46:45,494 basehttp "GET /login/ HTTP/1.1" 404 4218
+WARNING 2024-12-03 20:46:52,510 basehttp "GET /static/static/ HTTP/1.1" 404 1790
+WARNING 2024-12-03 20:56:11,246 log Not Found: /login/
+WARNING 2024-12-03 20:56:11,246 basehttp "GET /login/ HTTP/1.1" 404 4218
+WARNING 2024-12-03 20:56:11,938 log Not Found: /login
+WARNING 2024-12-03 20:56:11,939 basehttp "GET /login HTTP/1.1" 404 4215
+WARNING 2024-12-03 21:03:07,283 basehttp "GET /static/static/ HTTP/1.1" 404 1790
+WARNING 2024-12-03 21:04:27,514 log Not Found: /login/
+WARNING 2024-12-03 21:04:27,514 basehttp "GET /login/ HTTP/1.1" 404 4218
+WARNING 2024-12-03 21:04:28,103 log Not Found: /login
+WARNING 2024-12-03 21:04:28,104 basehttp "GET /login HTTP/1.1" 404 4215
+WARNING 2024-12-03 21:07:13,096 basehttp "GET /static/static/ HTTP/1.1" 404 1790
+WARNING 2024-12-03 21:12:28,040 log Not Found: /login/
+WARNING 2024-12-03 21:12:28,041 basehttp "GET /login/ HTTP/1.1" 404 4218
+WARNING 2024-12-03 21:12:28,631 log Not Found: /login
+WARNING 2024-12-03 21:12:28,632 basehttp "GET /login HTTP/1.1" 404 4215
+WARNING 2024-12-03 21:12:56,563 log Not Found: /login/
+WARNING 2024-12-03 21:12:56,564 basehttp "GET /login/ HTTP/1.1" 404 4218
+WARNING 2024-12-03 21:12:57,018 log Not Found: /login
+WARNING 2024-12-03 21:12:57,019 basehttp "GET /login HTTP/1.1" 404 4215
+WARNING 2024-12-03 21:20:00,012 log Not Found: /login/
+WARNING 2024-12-03 21:20:00,012 basehttp "GET /login/ HTTP/1.1" 404 4218
+WARNING 2024-12-03 21:20:00,491 log Not Found: /login
+WARNING 2024-12-03 21:20:00,491 basehttp "GET /login HTTP/1.1" 404 4215
