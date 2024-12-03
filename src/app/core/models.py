@@ -107,6 +107,7 @@ class Form(models.Model):
     name = models.CharField(max_length=80, verbose_name='Nombre', blank=False, null=False)
     favourite = models.BooleanField(verbose_name='Favorito', default=False)
     message_end_form = models.CharField(max_length=500, verbose_name='Mensaje final', default="Final de formulario")
+    image = models.ImageField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

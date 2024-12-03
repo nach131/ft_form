@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 from core.models import Form, SentForm, TextQuestion, BooleanQuestion, OptionQuestion
+from django.utils.timezone import now
+from datetime import timedelta
 
 # Vista formulario por form_id y user_id
 
@@ -54,7 +56,12 @@ class   FormSerializer(ModelSerializer):
 
 class   UserFormsSerializer(ModelSerializer):
     form_details = FormSerializer(source='form_id', read_only=True)
+    is_new = serializers.SerializerMethodField()
 
     class Meta:
         model = SentForm
-        fields = ['id', 'form_details', 'user_id']
+        fields = ['id', 'form_id', 'form_details', 'user_id', 'sended', 'is_new']
+
+    def get_is_new(self, obj):
+        five_days_ago = now() - timedelta(days=5)
+        return obj.sended > five_days_ago
