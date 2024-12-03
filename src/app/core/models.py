@@ -106,6 +106,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Form(models.Model):
     name = models.CharField(max_length=80, verbose_name='Nombre', blank=False, null=False)
     favourite = models.BooleanField(verbose_name='Favorito', default=False)
+    message_end_form = models.CharField(max_length=500, verbose_name='Mensaje final', default="Final de formulario")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -118,7 +119,10 @@ class Form(models.Model):
 class TextQuestion(models.Model):
     order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
     type = 'Text question'
-    text = models.CharField(max_length=250, verbose_name='Pregunta', blank=False, null=False)
+    max_chars = models.IntegerField(verbose_name='Maximo número de caracteres', default=1000)
+    min_chars = models.IntegerField(verbose_name='Mínimo número de caracteres', default=1)
+    text = models.CharField(max_length=300, verbose_name='Pregunta', blank=False, null=False)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
     form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
 
     class Meta:
@@ -131,6 +135,7 @@ class BooleanQuestion(models.Model):
     order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
     type = 'Boolean question'
     text = models.CharField(max_length=250, verbose_name='Pregunta', blank=False, null=False)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
     form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
 
     class Meta:
@@ -144,6 +149,7 @@ class OptionQuestion(models.Model):
     type = 'Option question'
     text = models.CharField(max_length=250, verbose_name='Pregunta', blank=False, null=False)
     options = models.JSONField(default=dict)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
     form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
 
     class Meta:
