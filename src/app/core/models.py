@@ -68,7 +68,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     last_activity = models.DateTimeField(null=True, blank=True)
 
-
     settings = models.OneToOneField(
         SettingsUser, on_delete=models.CASCADE, related_name="user",
         null=True, blank=True)
@@ -126,20 +125,20 @@ class SingleChoiceAnswer(models.Model):
     def __str__(self):
         return f"Single Choice Answer: {self.value}"
 
-class Answer(models.Model):
-    """Modelo para representar respuestas a preguntas específicas."""
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="answers"
-    )
-    question = models.ForeignKey(
-        Question, on_delete=models.CASCADE, related_name="answers"
-    )
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    response = GenericForeignKey('content_type', 'object_id')
+# class Answer(models.Model):
+#     """Modelo para representar respuestas a preguntas específicas."""
+#     user = models.ForeignKey(
+#         User, on_delete=models.CASCADE, related_name="answers"
+#     )
+#     question = models.ForeignKey(
+#         Question, on_delete=models.CASCADE, related_name="answers"
+#     )
+#     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+#     object_id = models.PositiveIntegerField()
+#     response = GenericForeignKey('content_type', 'object_id')
     
-    created_at = models.DateTimeField(auto_now_add=True)
+#     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"Answer from {self.user} to '{self.question}'"
+#     def __str__(self):
+#         return f"Answer from {self.user} to '{self.question}'"
 
