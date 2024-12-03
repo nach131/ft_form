@@ -6,7 +6,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from .views.todo import (
-    home, err, Cheat, Login,
+    home, err, Cheat, Login, CallbackFront, StudentHome, StaffHome,
 )
 
 urlpatterns = [
@@ -15,6 +15,9 @@ urlpatterns = [
     path('err/', err, name='err'),
     path("", Login, name='login'),
     path('login/redirect', login.redirect_api, name="redirect_api"),
-    path('login/callback', Callback42API.as_view(), name="callback"),
+    path('login/callback', CallbackFront, name='front_callback'),
+    path('login/handleCallback', Callback42API.as_view(), name="callback"),
+    path('studentHome', StudentHome, name='studenthome'),
+    path('staffHome', StaffHome, name='staffHome')
   #  path('login/callback', Callback42API.as_view(), name="callback"),
 ]

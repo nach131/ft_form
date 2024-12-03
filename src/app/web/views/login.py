@@ -48,14 +48,12 @@ def gen_state():
 
 class Callback42API(APIView):
     def get(self, request):
-#        try:
-#       body = json.loads(request.body.decode('utf-8'))
+
         code = request.GET.get('code')
         state = request.GET.get('state')
         logger.info(f"Code: {code}, State: {state}")
         if not state or not code:
             raise AuthenticationFailed("Invalid authentication parameters")
-        # response = {'response': 'POST'}
         params = {
             'grant_type': 'authorization_code',
             'client_id': os.environ['UID'],
@@ -69,10 +67,8 @@ class Callback42API(APIView):
             if response.status_code != 200:
                 raise AuthenticationFailed("Bad response code while authentication")
             data = response.json()
-            #return JsonResponse(data)
             intra_token = data.get("access_token")
             user = saveUser(str(intra_token))
-            #return JsonResponse({'Username: ': user.name})
             if (user == AnonymousUser):
                 raise AuthenticationFailed("Couldn't find or save the user")
             django_login(request, user)

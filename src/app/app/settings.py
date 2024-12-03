@@ -45,8 +45,8 @@ ALLOWED_HOSTS.extend(
     )
 )
 
-# CORS_ALLOW_ALL_ORIGINS = True
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     f'https://{DOMAIN}',
     f'https://www.{DOMAIN}',
