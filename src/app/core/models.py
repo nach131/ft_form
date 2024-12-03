@@ -71,7 +71,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     last_activity = models.DateTimeField(null=True, blank=True)
 
-
     settings = models.OneToOneField(
         SettingsUser, on_delete=models.CASCADE, related_name="user",
         null=True, blank=True)
