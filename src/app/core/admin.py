@@ -8,6 +8,30 @@ from .models import User
 from django.utils.translation import gettext_lazy as _
 
 from core import models
+from .models import Form, TextQuestion, BooleanQuestion, OptionQuestion, SentForm
+
+class TextQuestionInLine(admin.TabularInline):
+    model = TextQuestion
+    extra = 1
+
+class BooleanQuestionInLine(admin.TabularInline):
+    model = BooleanQuestion
+    extra = 1
+
+class OptionQuestionInLine(admin.TabularInline):
+    model = OptionQuestion
+    extra = 1
+
+class   FormAdmin(admin.ModelAdmin):
+    readonly_fields = ('created', 'updated')
+
+    inlines = [TextQuestionInLine, BooleanQuestionInLine, OptionQuestionInLine]
+
+admin.site.register(Form, FormAdmin)
+admin.site.register(TextQuestion)
+admin.site.register(BooleanQuestion)
+admin.site.register(OptionQuestion)
+admin.site.register(SentForm)
 
 #admin.site.register(User)
 
