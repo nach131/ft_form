@@ -9,7 +9,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <style>
         body {
-            background: linear-gradient(30deg, #3d3c3a, #676767);
+            /*background: linear-gradient(30deg, #3d3c3a, #676767);*/
+			background-color: rgb(1, 1, 1);
             width: 100%;
             height: 100vh;
             display: flex;
@@ -20,14 +21,14 @@
         }
         .container {
             text-align: right;
-            max-width: 600px;
+			width: 55vw;
         }
         .logo {
             display: block;
             margin: 0 auto 20px auto;
             max-width: 100%; /* Constrain the logo size */
             width: 80vw; /* Scale relative to viewport width */
-            height: auto;
+            height: 30%;
         }
         h1,h2,h3 {
             color: white;
@@ -49,8 +50,7 @@
             font-size: 1.5rem;
             font-weight: bold;
             color: #ffffff;
-            background-color: #18cced;
-            border-radius: 30px;
+            background-color: rgb(0, 149, 150);
             transition: all 0.3s ease-in-out;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added shadow */
             border: none; /* Remove border */
@@ -85,8 +85,6 @@
 <body>
     <div class="container">
         <img src="{% static '42_full_image.png' %}" alt="42 Logo" class="logo">
-        <h2>Take a minute to fill 42 form and win 42 rewards.</h2>
-        <h3>Including coalition points, altarians, bonus days, and more!</h3>
         <button class="btn btn-primary btn-login" id="popupButton" >Log In</button>
     </div>
 
@@ -99,7 +97,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to proceed to the next page?
+                    Are you sure you want to proceed to the sign in page?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
