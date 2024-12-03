@@ -1,0 +1,118 @@
+header {
+    background-color: #030303;
+    width: 100%;
+    height: 14vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    padding-left: 3vw;
+    padding-right: 3vw;
+}
+
+user-forms {
+    position: absolute; /* Allows positioning using top, left, right, bottom */
+    top: 14vh; /* Adjust to match the height of your header */
+    left: 0;
+    width: 100%; /* Match the width of the page */
+    z-index: 5; /* Ensure it's above other content but below overlays */
+    background-color: #2d2d2d; /* Optional: Set a background color */
+    color: white; /* Optional: Adjust text color */
+    padding: 1rem; /* Optional: Add padding for content */
+}
+
+
+.user-title-name {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Helvetica Neue', sans-serif;
+    /* Text to mayus */
+    text-transform: uppercase;
+}
+
+.rounded-circle {
+    border-radius: 50%;
+    width: 80px;
+    border: 5px solid white;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    width: 100%;
+    padding-left: 2vw;
+    padding-right: 10vw;
+}
+
+/* Progress bar */
+.progress {
+    height: 50%;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 20vw;
+}
+
+
+/* Logout button */
+.logout-btn {
+    color: #f3f3f3;
+    background-color: #ff4747;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    width: 60%;
+}
+
+.logout-btn:hover {
+    background-color: #e63636;
+}
+
+.logout-btn:focus {
+    outline: none;
+}
+
+.theme-icon {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: white;
+    position: absolute;
+    right: 2vw;
+    top: 1vh;
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        height: 10vh;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    .rounded-circle {
+        width: 80px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    h1 {
+        font-size: 1rem;
+    }
+
+    .rounded-circle {
+        width: 60px;
+    }
+}
+
