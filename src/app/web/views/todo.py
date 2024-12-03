@@ -23,3 +23,12 @@ def Cheat(request):
 
 def Login(request):
     return render(request, "login.html")
+
+def CallbackFront(request):
+    return render(request, 'calback42.html')
+
+def StudentHome(request):
+    return render(request, 'studenthome.html')
+
+def StaffHome(request):
+    return render(request, 'staffhome.html')
