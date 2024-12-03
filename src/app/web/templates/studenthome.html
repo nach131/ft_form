@@ -20,6 +20,16 @@
             overflow: scroll;
         }
 	</style>
+	  <script>
+        window.djangoStaticUrls = {
+            bootstrapChanges: "{% static 'styles/bootstrap_changes_white.css' %}",
+            studentHomeStyles: "{% static 'styles/studentHome/cards/styles.css' %}",
+            bootstrapCSS: "{% static 'bootstrap.min.css' %}",
+            calendarIcon: "{% static 'styles/studentHome/cards/calendar2.svg' %}",
+            trophyBlack: "{% static 'styles/studentHome/cards/trophy-black.svg' %}",
+            trophy: "{% static 'styles/studentHome/cards/trophy.svg' %}"
+        };
+    </script>
 </head>
 <body>
 	<header>

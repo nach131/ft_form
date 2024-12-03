@@ -20,15 +20,15 @@ class UserForms extends HTMLElement {
 	importStyles() {
 	  const generalBootstrap = document.createElement('link');
 	  generalBootstrap.setAttribute('rel', 'stylesheet');
-	  generalBootstrap.setAttribute('href', "{% static '/styles/bootstrap_changes_white.css' %}");
+	  generalBootstrap.setAttribute('href', window.djangoStaticUrls.bootstrapChanges);
   
 	  const styleLink = document.createElement('link');
 	  styleLink.setAttribute('rel', 'stylesheet');
-	  styleLink.setAttribute('href', "{% static '/styles/studentHome/cards/styles.css' %}");
+	  styleLink.setAttribute('href', window.djangoStaticUrls.studentHomeStyles);
   
 	  const bootstrap = document.createElement('link');
 	  bootstrap.setAttribute('rel', 'stylesheet');
-	  bootstrap.setAttribute('href', "{% static 'bootstrap.min.css' %}");
+	  bootstrap.setAttribute('href', window.djangoStaticUrls.bootstrapCSS);
   
 	  this.shadow.appendChild(styleLink);
 	  this.shadow.appendChild(generalBootstrap);
@@ -68,7 +68,7 @@ class UserForms extends HTMLElement {
                 <!-- Third column, aligned to the end -->
                 <div class="col-2 d-flex align-items-center pe-1">
                     <abbr title="${startDate} - ${endDate}">
-                        <img class="mb-3" src="{% static '/styles/studentHome/cards/calendar2.svg' %}" width="30" height="30">
+                        <img class="mb-3" src="${window.djangoStaticUrls.calendarIcon}" width="30" height="30">
                     </abbr>
                 </div>
             </div>
@@ -131,7 +131,7 @@ class UserForms extends HTMLElement {
 				if (trophyParent) {
 					// Set the checkbox's checked value based on the isFavourite value
 					let completeTrophy = document.createElement('img');
-					completeTrophy.src = "{% static '/styles/studentHome/cards/trophy-black.svg' %}";
+					completeTrophy.src = window.djangoStaticUrls.trophyBlack
 					completeTrophy.width = 30;
 					completeTrophy.height = 30;
 					
@@ -160,7 +160,7 @@ class UserForms extends HTMLElement {
 			{
 				let trophyParent = card.querySelector(`#trophy-${id}`); 
 				let completeTrophy = document.createElement('img');
-				completeTrophy.src = "{% static '/styles/studentHome/cards/trophy.svg' %}";
+				completeTrophy.src = window.djangoStaticUrls.trophy;
 				completeTrophy.width = 30;
 				completeTrophy.height = 30;
 
@@ -172,7 +172,7 @@ class UserForms extends HTMLElement {
 				if (trophyParent) {
 
 					let completeTrophy = document.createElement('img');
-					completeTrophy.src = "{% static '/styles/studentHome/cards/trophy-black.svg' %}";
+					completeTrophy.src = window.djangoStaticUrls.trophyBlack
 					completeTrophy.width = 30;
 					completeTrophy.height = 30;
 					
@@ -195,6 +195,7 @@ class UserForms extends HTMLElement {
 			endDate: "15/11/2024",
 			badges: [{ text: "Info", }, { text: "Alert" }],
 			state: 'Complete',
+			color: '#3ED008',
 			imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s'
 		  });
 		  this.addCard({
@@ -204,6 +205,7 @@ class UserForms extends HTMLElement {
 			endDate: "30/11/2024",
 			badges: [{ text: "Info", }, { text: "Alert" }],
 			state: 'New',
+			color: '#3ED008',
 			imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s'
 		  });
 		  this.addCard({
