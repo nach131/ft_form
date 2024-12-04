@@ -14,13 +14,30 @@ header {
 
 user-forms {
     position: absolute; /* Allows positioning using top, left, right, bottom */
-    top: 14vh; /* Adjust to match the height of your header */
     left: 0;
+    top: 14vh;
     width: 100%; /* Match the width of the page */
     z-index: 5; /* Ensure it's above other content but below overlays */
-    background-color: #2d2d2d; /* Optional: Set a background color */
     color: white; /* Optional: Adjust text color */
     padding: 1rem; /* Optional: Add padding for content */
+}
+
+@media (max-width: 768px) {
+    user-forms {
+        top: 10vh;
+    }
+}
+
+@media (max-width: 576px) {
+    user-forms {
+        top: 8vh;
+    }
+}
+
+@media (max-width: 480px) {
+    user-forms {
+        top: 6vh;
+    }
 }
 
 
@@ -33,12 +50,81 @@ user-forms {
     text-transform: uppercase;
 }
 
+
 .rounded-circle {
     border-radius: 50%;
-    width: 80px;
+    width: 20%;
+    max-width: 80px;
+    min-width: 40px;
     border: 5px solid white;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
+
+/* Progress bar */
+.progress {
+    font-size: 0.8rem;
+}
+
+
+@media (max-width: 768px) {
+    header {
+        height: 10vh;
+    }
+
+    .user-title-name {
+        font-size: 1.2rem;
+    }
+
+    .rounded-circle {
+        width: 15%;
+        border: 4px solid white;
+    }
+
+    .progress {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 576px) {
+    header {
+        height: 8vh;
+    }
+
+    .user-title-name {
+        font-size: 1rem;
+    }
+
+    .rounded-circle {
+        width: 10%;
+        border: 4px solid white;
+    }
+
+    .progress {
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        height: 6vh;
+    }
+
+    .user-title-name {
+        font-size: 0.8rem;
+    }
+
+    .rounded-circle {
+        width: 8%;
+        border: 3px solid white;
+    }
+
+    .progress {
+        font-size: 0.5rem;
+    }
+}
+
+
+
 
 .profile-container {
     display: flex;
@@ -50,10 +136,6 @@ user-forms {
     padding-right: 10vw;
 }
 
-/* Progress bar */
-.progress {
-    height: 50%;
-}
 
 .options-container {
     display: flex;
@@ -72,7 +154,11 @@ user-forms {
     border: none;
     cursor: pointer;
     font-weight: bold;
-    width: 60%;
+    font-size: 1rem;
+    width: 30%;
+    max-width: 100px;
+    min-width: 100px;
+    margin-right: 6vw;
 }
 
 .logout-btn:hover {
@@ -83,36 +169,67 @@ user-forms {
     outline: none;
 }
 
+
+@media (max-width: 768px) {
+    .logout-btn {
+        width: 25%;
+        max-width: 80px;
+        min-width: 80px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .logout-btn {
+        width: 20%;
+        max-width: 70px;
+        min-width: 70px;
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logout-btn {
+        width: 15%;
+        max-width: 60px;
+        min-width: 60px;
+        font-size: 0.6rem;
+    }
+} 
+
+
 .theme-icon {
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 1rem;
     color: white;
     position: absolute;
     right: 2vw;
     top: 1vh;
+    z-index: 10;
+    /* add a shadow to the icon */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    /* add a transition effect */
+    /* remove the default focus effect */
+    outline: none;
+    /* postion at center */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* add a transition effect */
+    transition: all 0.3s ease;
+
 }
 
-@media screen and (max-width: 768px) {
-    header {
-        height: 10vh;
-    }
-
-    h1 {
-        font-size: 1.2rem;
-    }
-
-    .rounded-circle {
-        width: 80px;
-    }
+.theme-icon:hover {
+    color: #c7c7c7;
+    transform: scale(1.1);
 }
 
-@media screen and (max-width: 425px) {
-    h1 {
-        font-size: 1rem;
-    }
-
-    .rounded-circle {
-        width: 60px;
-    }
+.theme-icon:focus {
+    outline: none;
 }
 
+.theme-icon:active {
+    transform: scale(0.9);
+}
