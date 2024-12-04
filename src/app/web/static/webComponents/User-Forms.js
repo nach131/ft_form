@@ -99,7 +99,7 @@ class UserForms extends HTMLElement {
 					height: 400px;
 				}
 				.card-header {
-					background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s');
+					
 					background-size: cover;
 					background-repeat: no-repeat;
 					background-position: center;
@@ -115,12 +115,12 @@ class UserForms extends HTMLElement {
 		
 			let cardHeader = card.querySelector(`#header-${id}`);
 
-		// Set the background image to the card element
-				cardHeader.style.backgroundImage = `url('${imageUrl}')`;
-				cardHeader.style.backgroundSize = 'cover';
-				cardHeader.style.backgroundRepeat = 'no-repeat';
-				cardHeader.style.backgroundPosition = 'center';
-				
+
+			cardHeader.style.backgroundImage = `url('${imageUrl}')`;
+			cardHeader.style.backgroundSize = 'cover';
+			cardHeader.style.backgroundRepeat = 'no-repeat';
+			cardHeader.style.backgroundPosition = 'center';
+			
 				
 
 			card.appendChild(style);
@@ -129,7 +129,6 @@ class UserForms extends HTMLElement {
 			{
 				let trophyParent = card.querySelector(`#trophy-${id}`); 
 				if (trophyParent) {
-					// Set the checkbox's checked value based on the isFavourite value
 					let completeTrophy = document.createElement('img');
 					completeTrophy.src = window.djangoStaticUrls.trophyBlack
 					completeTrophy.width = 30;
@@ -139,17 +138,11 @@ class UserForms extends HTMLElement {
 				}
 				let newTitle = card.querySelector(`#header-${id}`); 
 				if (newTitle) {
-					// Set the checkbox's checked value based on the isFavourite value
 					let completeTrophy = document.createElement('h3');
 					completeTrophy.textContent = 'New';
-					
-					// Set the color of the text
 					completeTrophy.style.color = `${color}`;
-					
-					// Set the font size and font weight
-					completeTrophy.style.fontSize = '24px';   // Set font size (adjust as needed)
-					completeTrophy.style.fontWeight = 'bold'; // Set font weight (use 'bold' or a numeric value like '600')
-					
+					completeTrophy.style.fontSize = '24px'; 
+					completeTrophy.style.fontWeight = 'bold'; 
 			
 					newTitle.appendChild(completeTrophy);
 				}
@@ -188,11 +181,10 @@ class UserForms extends HTMLElement {
 
 	
 	connectedCallback() {
-		// Replace these values with actual user_id and sent_form_id
 		const baseUrl = window.location.origin; 
-		const userId = '1';  // Example user ID
+		const userId = localStorage.getItem('id'); 
 
-		// Construct the URL with the given user_id and sent_form_id
+
 		const url = `${baseUrl}/api/user-forms/${userId}/`;
 
 		// Make the GET request
@@ -207,7 +199,6 @@ class UserForms extends HTMLElement {
 				return response.json();
 			})
 			.then(data => {
-				console.log('Response Data:', data);
 				data.forEach(element => {
 					this.addCard({
 						id: element.id,
@@ -215,8 +206,7 @@ class UserForms extends HTMLElement {
 						startDate: new Date(element.sended).toLocaleString(),
 						endDate: "No End Date",
 						state: element.is_new ? 'New' : 'Normal',
-						color: '#3ED008',
-						imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s',
+						color: localStorage.getItem('color'),
 						imageUrl: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png'
 					})
 				});

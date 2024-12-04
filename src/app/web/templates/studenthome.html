@@ -29,13 +29,14 @@
             trophyBlack: "{% static 'styles/studentHome/cards/trophy-black.svg' %}",
             trophy: "{% static 'styles/studentHome/cards/trophy.svg' %}"
         };
+		
     </script>
 </head>
 <body>
-	<header>
-		<img src="/public/assets/images/cpeset-c.png" alt="Profile Picture" class="rounded-circle">
+	<header id="banner_img">
+		<img id="profile-picture" alt="Profile Picture" class="rounded-circle">
 		<div class="profile-container">
-			<h1 class="user-title-name">Mastermind cpeset-c</h1>
+			<h1 id="user-title" class="user-title-name"></h1>
 			<div class="progress">
 				<div 
 					class="progress-bar bg-success" 
@@ -58,7 +59,34 @@
 	</header>
 
 		<user-forms></user-forms>
+	<script>
+		
+		const user_img = localStorage.getItem('user_img');
+		
+		if (user_img) {
+			document.getElementById('profile-picture').src = user_img;
+		}
 
+		const banner_img = localStorage.getItem('coalition_img');
+
+		if (banner_img) {
+			// Set the background image of the header element
+			const banner = document.getElementById('banner_img');
+
+			banner.style.backgroundImage = `url(${banner_img})`;
+			banner.style.backgroundSize = 'cover';
+			banner.style.backgroundPosition = 'center';
+			banner.style.backgroundRepeat = 'no-repeat';
+		}
+		const username = localStorage.getItem('username');
+		const title = localStorage.getItem('title');
+		if (username) {
+			// Set the background image of the header element
+			const profile_name = document.getElementById('user-title');
+			profile_name.textContent = `${username} ${title}`
+
+		}
+	</script>
 	<script src="{% static '/styles/studentHome/Header/logout.js' %}"></script>
 	<script src="{% static '/styles/studentHome/Header/theme.js' %}"></script>
 </body>
