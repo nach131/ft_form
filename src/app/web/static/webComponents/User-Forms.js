@@ -35,7 +35,7 @@ class UserForms extends HTMLElement {
 	  this.shadow.appendChild(bootstrap);
 	}
 	
-	addCard({ id, title, startDate, endDate, badges = [], state, color, minutes, imageUrl }) {
+	addCard({ id, title, startDate, endDate, state, color, minutes, imageUrl }) {
 		const GridOfCards = this.container.querySelector('#appendCardsHere');
 	
 		if (GridOfCards) {
@@ -88,7 +88,7 @@ class UserForms extends HTMLElement {
                     <div class="row ms-2 me-2 mt-5">
                         <div class="col-md-12 d-flex justify-content-end align-items-end mt-3">
                           
-                            <button  type="button" class="btn " style="background-color: ${color}; border 0px; font-weight: bold; color: white;">Enter</button>
+                            <button onclick="window.location.href='https://example.com?formid=${id}';" type="button" class="btn " style="background-color: ${color}; border 0px; font-weight: bold; color: white;">Enter</button>
                         </div>
                     </div>
 			`;
@@ -188,66 +188,54 @@ class UserForms extends HTMLElement {
 
 	
 	connectedCallback() {
-		this.addCard({
-			id: 1,
-			title: "Formulario Empleo Estudiantes",
-			startDate: "01/11/2024",
-			endDate: "15/11/2024",
-			badges: [{ text: "Info", }, { text: "Alert" }],
-			state: 'Complete',
-			color: '#3ED008',
-			imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s'
-		  });
-		  this.addCard({
-			id: 2,
-			title: "Formulario Satisfacción Piscina",
-			startDate: "16/11/2024",
-			endDate: "30/11/2024",
-			badges: [{ text: "Info", }, { text: "Alert" }],
-			state: 'New',
-			color: '#3ED008',
-			imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s'
-		  });
-		  this.addCard({
-			id: 3,
-			title: "Dynamic Card 2",
-			startDate: "16/11/2024",
-			endDate: "30/11/2024",
-			badges: [{ text: "Info"}, { text: "Alert" }],
-			state: 'Normal',
-			color: '#3ED008',
-			imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s'
-		  });
-		  this.addCard({
-			id: 4,
-			title: "Dynamic Card 2",
-			startDate: "16/11/2024",
-			endDate: "30/11/2024",
-			badges: [{ text: "Info" }, { text: "Alert"}],
-			state: 'New',
-			color: '#3ED008',
-			imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s'
-		  });
-		  this.addCard({
-			id: 5,
-			title: "Dynamic Card 2",
-			startDate: "16/11/2024",
-			endDate: "30/11/2024",
-			badges: [{ text: "Info" }, { text: "Alert" }],
-			state: 'Complete',
-			color: '#3ED008',
-			imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s'
-		  });
-		  this.addCard({
-			id: 6,
-			title: "Dynamic Card 2",
-			startDate: "16/11/2024",
-			endDate: "30/11/2024",
-			badges: [{ text: "Info" }, { text: "Alert" }],
-			state: 'New',
-			color: '#3ED008',
-			imageUrl: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png'
-		  });
+		// Replace these values with actual user_id and sent_form_id
+		const baseUrl = window.location.origin; 
+		const userId = '1';  // Example user ID
+
+		// Construct the URL with the given user_id and sent_form_id
+		const url = `${baseUrl}/api/user-forms/${userId}/`;
+
+		// Make the GET request
+		fetch(url, {
+			method: 'GET',
+		
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				console.log('Response Data:', data);
+				data.forEach(element => {
+					this.addCard({
+						id: element.id,
+						title: element.form_details.name,
+						startDate: new Date(element.sended).toLocaleString(),
+						endDate: "No End Date",
+						state: element.is_new ? 'New' : 'Normal',
+						color: '#3ED008',
+						imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s',
+						imageUrl: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png'
+					})
+				});
+				
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+
+		// this.addCard({
+		// 	id: 1,
+		// 	title: "Formulario Empleo Estudiantes",
+		// 	startDate: "01/11/2024",
+		// 	endDate: "15/11/2024",
+		// 	badges: [{ text: "Info", }, { text: "Alert" }],
+		// 	state: 'Complete',
+		// 	color: '#3ED008',
+		// 	imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s'
+		//   });
 	}
   }
   
