@@ -100,8 +100,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         super(User, self).save(*args, **kwargs)
 
 
-
-
 class Form(models.Model):
     name = models.CharField(max_length=80, verbose_name='Nombre', blank=False, null=False)
     favourite = models.BooleanField(verbose_name='Favorito', default=False)
@@ -165,8 +163,72 @@ class   SentForm(models.Model):
     sended = models.DateTimeField(verbose_name='sended')
     answered = models.BooleanField(verbose_name='answered', default=False)
 
+## apardo-m - Questions
+
+# LongTextQuestion   equivale a TextQuestion??
+
+# MultipleChoiceQuestion es prácticamente identica a OptionQuestion
+
+class MultipleChoiceQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'Multiple Choice question'
+    text = models.CharField(max_length=250, verbose_name='Pregunta', blank=False, null=False)
+    options = models.JSONField(default=dict)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'Multiple Choice question'
+
+    def __str__(self):
+        return self.text
+
+
+class OpinionScaleQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'Option Scale question'
+    min_value = models.IntegerField(verbose_name='Valor mínimo de la escala', default=1)
+    max_value = models.IntegerField(verbose_name='Valor máximo de la escala', default=10)
+    text = models.CharField(max_length=250, verbose_name='Pregunta', blank=False, null=False)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'Opinion Scale Choice question'
+
+    def __str__(self):
+        return self.text
+
+
+class NumberQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'Number question'
+    text = models.CharField(max_length=250, verbose_name='Pregunta', blank=False, null=False)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'Number question'
+
+    def __str__(self):
+        return self.text
+
+
+class DateQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'Date question'
+    text = models.CharField(max_length=250, verbose_name='Pregunta', blank=False, null=False)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'Date question'
+
+    def __str__(self):
+        return self.text
 
 # Modelos de respuesta
+
 
 class Answer(models.Model):
     """Modelo para representar respuestas a preguntas específicas."""
@@ -185,6 +247,7 @@ class Answer(models.Model):
     def __str__(self):
         return f"Answer from {self.user} to '{self.question}'"
 
+
 class CharFieldAnswer(models.Model):
     """Modelo para respuestas tipo texto."""
     value = models.CharField(
@@ -197,7 +260,8 @@ class CharFieldAnswer(models.Model):
     def __str__(self):
         return f"CharField Answer: {self.value}"
 
-class BooleanAswer(models.Model):
+
+class BooleanAnswer(models.Model):
     """Modelo para respuestas tipo booleano."""
     value = models.BooleanField(null=True)
     answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
@@ -205,7 +269,7 @@ class BooleanAswer(models.Model):
     
     def __str__(self):
         return f"Boolean Answer: {self.value}"
-    
+   
 
 class SingleChoiceAnswer(models.Model):
     """Modelo para respuestas tipo selección única."""
@@ -215,6 +279,7 @@ class SingleChoiceAnswer(models.Model):
     
     def __str__(self):
         return f"Single Choice Answer: {self.value}"
+
 
 # class Answer(models.Model):
 #     """Modelo para representar respuestas a preguntas específicas."""
@@ -233,19 +298,45 @@ class SingleChoiceAnswer(models.Model):
 #     def __str__(self):
 #         return f"Answer from {self.user} to '{self.question}'"
 
-## apardo-m
+## apardo-m - Questions
 
-class MultipleQuestion(models.Model):
-    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
-    type = 'Multiple question'
-    text = models.CharField(max_length=250, verbose_name='Pregunta', blank=False, null=False)
-    options = models.JSONField(default=dict)
-    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
-    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
 
-    class Meta:
-        db_table = 'Multiple question'
+class MultipleChoiceAnswer(models.Model):
+    """Modelo para respuestas tipo Multiple Choice."""
+    value = models.JSONField(default=dict)
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    question_id = models.ForeignKey(MultipleChoiceQuestion, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.text
+        return f"Multiple Choice Answer: {self.value}"
 
+
+class OpinionScaleAnswer(models.Model):
+    """Modelo para respuestas tipo Opinion Scale."""
+    value = models.IntegerField(default=1)
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    question_id = models.ForeignKey(OpinionScaleQuestion, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Opinion Scale Answer: {self.value}"
+
+
+class NumberAnswer(models.Model):
+    """Modelo para respuestas tipo Number."""
+    value = models.IntegerField(default=0)
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    question_id = models.ForeignKey(NumberQuestion, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Opinion Scale Answer: {self.value}"
+
+
+# Ver https://docs.djangoproject.com/en/5.1/ref/models/fields/#datefield
+class DateAnswer(models.Model):
+    """Modelo para respuestas tipo Date."""
+    value = models.DateField(blank=True, null=True)
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    question_id = models.ForeignKey(DateQuestion, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Opinion Scale Answer: {self.value}"
