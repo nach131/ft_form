@@ -3,8 +3,6 @@ class TextComponent extends HTMLElement{
         super();
         let shadow = this.attachShadow({mode: 'open'});
         let estilo = document.createElement('style');
-        this.question = this.getAttribute('question');
-        this.numQuestion = this.getAttribute('numQuestion');
         estilo.textContent = /*css*/`
         :host{
             color: #fff;
@@ -127,10 +125,14 @@ class TextComponent extends HTMLElement{
             }
         `;
         shadow.appendChild(estilo);
-
         let content = document.createElement('div');
-        content.id = 'question';
-        content.innerHTML = /*html*/`
+		content.id = 'question';
+        shadow.appendChild(content);
+		
+    }
+    render(){
+		let element = this.shadowRoot.getElementById('question');
+		element.innerHTML = /*html*/`
             <div class="form-card">
                 <div class="num-question">
                     <p>${this.numQuestion}</p>
@@ -154,17 +156,21 @@ class TextComponent extends HTMLElement{
                 </form>
             </div>
         `;
-        shadow.appendChild(content);
-    }
-    
+	}
+
     connectedCallback(){
-        if (this.numQuestion != 1){
+		this.question = this.getAttribute('question');
+        this.numQuestion = this.getAttribute('numQuestion');
+		console.log(this.numQuestion);
+		console.log(this.question);
+		this.render();
+        if (this.numQuestion != '1'){
             let inputContainer = this.shadowRoot.querySelector('.input-container');
             let prevBtn =  document.createElement('button');
             prevBtn.id = 'prev-btn';
             prevBtn.textContent = 'Previous';
             inputContainer.appendChild(prevBtn);
-            prevBtn.addEventListener('click', this.prevBtnClickHandler);
+			
         }
     }
     
@@ -175,7 +181,6 @@ class TextComponent extends HTMLElement{
         }
     }
     prevBtnClickHandler(){
-        history.back();
     }
 }
 

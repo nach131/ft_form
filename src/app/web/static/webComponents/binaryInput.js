@@ -3,7 +3,6 @@ class binaryInputComponent extends HTMLElement{
         super();
         let shadow = this.attachShadow({mode: 'open'});
         let estilo = document.createElement('style');
-        /* insertar el estilo(css) que queramos darle al componente dentro del text content de la variable estilo*/
         estilo.textContent = /*css*/`
             :host{
                 width: 100vw;
@@ -140,9 +139,6 @@ class binaryInputComponent extends HTMLElement{
         let content = document.createElement('div');
         content.id = 'question';
         shadow.appendChild(content);
-        this.question = this.getAttribute('question') || '¿Es usted mayor de edad?';
-        this.numQuestion = this.getAttribute('numQuestion') || 1;
-        this.render();
     }
     render(){
         let element = this.shadowRoot.getElementById('question');
@@ -175,23 +171,20 @@ class binaryInputComponent extends HTMLElement{
         `;
     }
     connectedCallback(){
-        if (this.numQuestion != 1){
+		this.question = this.getAttribute('question');
+        this.numQuestion = this.getAttribute('numQuestion');
+		console.log(this.numQuestion);
+		console.log(this.question);
+		this.render();
+		if (this.numQuestion != '1'){
             let inputContainer = this.shadowRoot.querySelector('.input-container');
             let prevBtn =  document.createElement('button');
             prevBtn.id = 'prev-btn';
             prevBtn.textContent = 'Previous';
             inputContainer.appendChild(prevBtn);
-            prevBtn.addEventListener('click', this.prevBtnClickHandler);
         }
     }
-    disconnectedCallback(){
-        let prevBtn = this.shadowRoot.querySelector('#prev-btn');
-        if (prevBtn) {
-            prevBtn.removeEventListener('click', this.prevBtnClickHandler);
-        }
-    }
-    prevBtnClickHandler(){
-        history.back();
+    disconnectedCallback(){  
     }
 }
 
