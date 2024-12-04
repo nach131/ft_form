@@ -22,6 +22,37 @@ class OptionQuestionSerializer(ModelSerializer):
         model = OptionQuestion
         fields = ['order', 'type', 'text', 'options', 'is_required']
 
+## START apardo-m
+
+class MultipleChoiceQuestionSerializer(ModelSerializer):
+    class Meta:
+        model = MultipleChoiceQuestion
+        fields = ['order', 'type', 'text', 'options', 'is_required']
+
+class OpinionScaleSerializer(ModelSerializer):
+    class Meta:
+        model = OpinionScaleQuestion
+        fields = ['order', 'type', 'text', 'min_value', 'max_value', 'text', 'is_required']
+
+class NumberQuestionSerializer(ModelSerializer):
+    class Meta:
+        model = NumberQuestionQuestion
+        fields = ['order', 'type', 'text', 'is_required']
+
+class DateQuestionSerializer(ModelSerializer):
+    class Meta:
+        model = DateQuestion
+        fields = ['order', 'type', 'text', 'is_required']
+
+class EmailQuestionSerializer(ModelSerializer):
+    class Meta:
+        model = EmailQuestion
+        fields = ['order', 'type', 'text', 'is_required']
+
+
+
+## END apardo-m
+
 class SentFormSerializer(ModelSerializer):
     form_name = serializers.CharField(source='form_id.name', read_only=True)
     mesage_end_form = serializers.CharField(source='form_id.message_end_form', read_only=True)
