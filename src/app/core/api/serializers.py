@@ -50,7 +50,6 @@ class EmailQuestionSerializer(ModelSerializer):
         fields = ['order', 'type', 'text', 'is_required']
 
 
-
 ## END apardo-m
 
 class SentFormSerializer(ModelSerializer):
