@@ -16,12 +16,16 @@ if (code && state){
             document.cookie = `access_token=${data.access_token}`;
             document.cookie = `refresh_token=${data.refresh_token}`;
             localStorage.setItem('username', data.username);
+
             localStorage.setItem('user_img', data.profile_img);
             localStorage.setItem('is_staff', data.is_staff);
             localStorage.setItem('coalition', data.coalition);
             localStorage.setItem('color', data.color);
             localStorage.setItem('coalition_img', data.coalition_img);
             localStorage.setItem('title', data.title);
+
+            // color, coalicion, coalicion_img, title
+
             if (data.is_staff === 'true'){
                 window.location.href = 'http://localhost:8000/staffHome';
             }else{

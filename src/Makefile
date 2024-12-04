@@ -34,7 +34,12 @@ endif
 build: create-dirs pull-images
 	@echo "Building Docker images..."
 	@$(DOCKER_COMPOSE) build
+#	@chmod -R 777 data/log/
 	@$(DOCKER_COMPOSE) $(DC_RUN_APP) "python manage.py wait_for_db"
+	@rm -rf app/core/migrations/__pycache__/*
+	@if [ -f "app/core/migrations/0001_initial.py" ]; then \
+        rm "app/core/migrations/0001_initial.py"; \
+    fi
 
 up:
 	@echo "Running setup tasks..."
@@ -55,6 +60,7 @@ control:
 
 mi:
 	@echo "Running Migrations..."
+	@chmod -R 777  app/core/migrations/
 	@$(DOCKER_COMPOSE) $(DC_RUN_APP) "python manage.py makemigrations"
 	@$(DOCKER_COMPOSE) $(DC_RUN_APP) "python manage.py migrate"
 	
@@ -70,11 +76,16 @@ clean: down
 
 fclean: clean
 	@echo "Deleting all Docker resources..."
-	@rm -rf $(DB_DIR)  $(LOG_DIR)
 	@docker image rm src-ft_form
 	@docker volume rm src_db-data src_static-data src_media-data
-#	@docker-compose down --rmi all --volumes --remove-orphans
+	@docker-compose down --rmi all --volumes --remove-orphans
+	@docker system prune -a --volumes
+	@rm -rf app/core/migrations/__pycache__/*
+	@if [ -f "app/core/migrations/0001_initial.py" ]; then \
+        rm "app/core/migrations/0001_initial.py"; \
+    fi
 	@echo "Deleted containers, images, and volumes."
+	@rm -rf $(DB_DIR)  $(LOG_DIR)
 	
 re: fclean all
 
