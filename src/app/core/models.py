@@ -227,6 +227,22 @@ class DateQuestion(models.Model):
     def __str__(self):
         return self.text
 
+class EmailQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'Email question'
+    text = models.CharField(max_length=250, verbose_name='Pregunta', blank=False, null=False)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'Email question'
+
+    def __str__(self):
+        return self.text
+
+## apardo-m - Questions
+## apardo-m - Questions
+
 # Modelos de respuesta
 
 
@@ -298,7 +314,7 @@ class SingleChoiceAnswer(models.Model):
 #     def __str__(self):
 #         return f"Answer from {self.user} to '{self.question}'"
 
-## apardo-m - Questions
+## apardo-m -  Answers
 
 
 class MultipleChoiceAnswer(models.Model):
@@ -331,7 +347,6 @@ class NumberAnswer(models.Model):
         return f"Opinion Scale Answer: {self.value}"
 
 
-# Ver https://docs.djangoproject.com/en/5.1/ref/models/fields/#datefield
 class DateAnswer(models.Model):
     """Modelo para respuestas tipo Date."""
     value = models.DateField(blank=True, null=True)
@@ -340,3 +355,14 @@ class DateAnswer(models.Model):
 
     def __str__(self):
         return f"Opinion Scale Answer: {self.value}"
+
+class EmailAnswer(models.Model):
+    """Modelo para respuestas tipo EmailDate."""
+    value = models.emailField(max_length=254, blank=True, null=True)
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    question_id = models.ForeignKey(EmailQuestion, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Opinion Email Answer: {self.value}"
+
+## apardo-m -  Answers
