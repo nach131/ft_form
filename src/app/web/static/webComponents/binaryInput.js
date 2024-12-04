@@ -49,6 +49,23 @@ class binaryInputComponent extends HTMLElement{
                 border-radius: 15px;
                 max-width: 110px;
             }
+            #prev-btn{
+                background-color: #00B8F0;
+                color: #fff;
+                border: 0px solid #000;
+                font-size: 0.9rem;
+                font-weight: 500;
+                font-family: 'Source Sans 3';
+                text-align: center;
+                grid-row-start: 3;
+                grid-row-end: 4;
+                grid-column-start: 2;
+                grid-column-end: 3;
+                justify-self: center;
+                align-self: flex-start;
+                border-radius: 15px;
+                max-width: 110px;
+            }
             #binary-positive{
                 grid-row-start: 1;
                 grid-row-end: 2;
@@ -123,19 +140,9 @@ class binaryInputComponent extends HTMLElement{
         let content = document.createElement('div');
         content.id = 'question';
         shadow.appendChild(content);
-    }
-    async fetchQuestion(){
-        try {
-            // const response = await fetch('https://your-backend-endpoint.com/question');
-            // const data = await response.json();
-            // this.numQuestion = data.numQuestion;
-            // this.question = data.question;
-            this.question = 'Te gusta mucho mucho 42?';
-            this.numQuestion = 1;
-            this.render();
-        }catch (error) {
-            console.error('Error fetching question:', error);
-        }
+        this.question = this.getAttribute('question') || '¿Es usted mayor de edad?';
+        this.numQuestion = this.getAttribute('numQuestion') || 1;
+        this.render();
     }
     render(){
         let element = this.shadowRoot.getElementById('question');
@@ -168,13 +175,24 @@ class binaryInputComponent extends HTMLElement{
         `;
     }
     connectedCallback(){
-        this.fetchQuestion();
+        if (this.numQuestion != 1){
+            let inputContainer = this.shadowRoot.querySelector('.input-container');
+            let prevBtn =  document.createElement('button');
+            prevBtn.id = 'prev-btn';
+            prevBtn.textContent = 'Previous';
+            inputContainer.appendChild(prevBtn);
+            prevBtn.addEventListener('click', this.prevBtnClickHandler);
+        }
     }
-    /*aqui nos encargamos de eliminar todos los event listener que creamos en la connected callback,
-     para que no queden huerfanos*/ 
     disconnectedCallback(){
+        let prevBtn = this.shadowRoot.querySelector('#prev-btn');
+        if (prevBtn) {
+            prevBtn.removeEventListener('click', this.prevBtnClickHandler);
+        }
+    }
+    prevBtnClickHandler(){
+        history.back();
     }
 }
 
-/*Reemplazar los campos por template-component por el nombre que queramos darle a la etiqueta en cuestion y TemplateComponent por el nombre de la clase creada*/
 window.customElements.define('binary-tag', binaryInputComponent);
