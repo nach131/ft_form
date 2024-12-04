@@ -152,7 +152,7 @@ class TextComponent extends HTMLElement{
                 </div>
                 <form action="" class="input-container">
                     <input type="text" placeholder="Responde aqui" minlength="${this.getAttribute('minlength')}" maxlength="${this.getAttribute('maxlength')}"></input>
-                    <button type="submit" id="next-btn">Next</button>
+                    <button type="" id="next-btn">Next</button>
                 </form>
             </div>
         `;
@@ -161,8 +161,6 @@ class TextComponent extends HTMLElement{
     connectedCallback(){
 		this.question = this.getAttribute('question');
         this.numQuestion = this.getAttribute('numQuestion');
-		console.log(this.numQuestion);
-		console.log(this.question);
 		this.render();
         if (this.numQuestion != '1'){
             let inputContainer = this.shadowRoot.querySelector('.input-container');
@@ -179,8 +177,6 @@ class TextComponent extends HTMLElement{
         if (prevBtn) {
             prevBtn.removeEventListener('click', this.prevBtnClickHandler);
         }
-    }
-    prevBtnClickHandler(){
     }
 }
 

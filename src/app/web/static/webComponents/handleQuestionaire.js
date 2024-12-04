@@ -25,10 +25,10 @@ function renderQuestionaire(data){
         body{
             color: #000;
         }
-        .question-container {
+        .inactive {
             display: none;
         }
-        .question-container.active {
+        .active {
             display: block;
         }
    `;
@@ -57,37 +57,46 @@ function renderQuestionaire(data){
 	  }
 	  data.text_questions.forEach((question) => {
 		let questionElement = createQuestionElement(question, 'text');
-		questionElements.push({ element: questionElement, order: question.order });
+		let questionContainer = document.createElement('div');
+		questionContainer.appendChild(questionElement);
+		questionElements.push({ element: questionContainer, order: question.order });
 	  });
 	  
 	  data.boolean_questions.forEach((question) => {
 		let questionElement = createQuestionElement(question, 'boolean');
-		questionElements.push({ element: questionElement, order: question.order });
+		let questionContainer = document.createElement('div');
+		questionContainer.appendChild(questionElement);
+		questionElements.push({ element: questionContainer, order: question.order });
 	  });
 	  
 	  data.option_questions.forEach((question) => {
 		let questionElement = createQuestionElement(question, 'option');
-		questionElements.push({ element: questionElement, order: question.order });
+		let questionContainer = document.createElement('div');
+		questionContainer.appendChild(questionElement);
+		questionElements.push({ element: questionContainer, order: question.order });
 	  });
 
 	  questionElements.sort((a, b) => a.order - b.order);
 
 	  questionElements.forEach((item, index) => {
-		console.log("item: ",item);
-		console.log("index: ",index);
-		let questionContainer = document.createElement('div');
-		questionContainer.appendChild(item.element);
-		container.appendChild(questionContainer);
-	  
-		let nextButton = item.element.querySelector('#next-btn');
-		let prevButton = item.element.querySelector('#prev-btn');
-		console.log(nextButton);
-		console.log(prevButton);
+		if(index === 0){
+			item.element.classList.add('active');
+		}
+		else{
+			item.element.classList.add('inactive');
+		}
+		container.appendChild(item.element);
+		
+		let customElement = item.element.firstElementChild;
+		let shadow = customElement.shadowRoot;
+
+		let nextButton = shadow.querySelector('#next-btn');
+		let prevButton = shadow.querySelector('#prev-btn');
 
 
 		if (nextButton) {
-			console.log('nextButton');
-		  nextButton.addEventListener('click', () => {
+		  nextButton.addEventListener('click', (event) => {
+			event.preventDefault();
 			if (index < questionElements.length - 1) {
 			  showQuestion(index + 1);
 			}
@@ -95,8 +104,8 @@ function renderQuestionaire(data){
 		}
 	  
 		if (prevButton) {
-			console.log('prevButton');
-		  prevButton.addEventListener('click', () => {
+		  prevButton.addEventListener('click', (event) => {
+			event.preventDefault();
 			if (index > 0) {
 			  showQuestion(index - 1);
 			}
@@ -105,10 +114,21 @@ function renderQuestionaire(data){
 });
 	 
     let currentIndex = 0;
+	
 
     function showQuestion(index) {
-        questionElements[currentIndex].classList.remove('active');
-        questionElements[index].classList.add('active');
-        currentIndex = index;
-    }
+		if (questionElements[currentIndex]) {
+			console.log(questionElements[currentIndex]);
+			questionElements[currentIndex].element.classList.remove('active');
+			questionElements[currentIndex].element.classList.add('inactive');
+		  }
+		  if (questionElements[index]) {
+			console.log(questionElements[index]);
+			questionElements[index].element.classList.remove('inactive');
+			questionElements[index].element.classList.add('active');
+			currentIndex = index;
+		  } else {
+			console.error('Invalid index:', index);
+		  }
+		}
 }

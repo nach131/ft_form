@@ -37,10 +37,12 @@ class binaryInputComponent extends HTMLElement{
             #next-btn{
                 background-color: #FC0;
                 border: 0px solid #000;
+				color:#fff;
                 font-size: 1rem;
                 font-weight: 700;
                 font-family: 'Source Sans 3';
                 text-align: center;
+				justify-self: flex-start;
                 grid-row-start: 3;
                 grid-row-end: 4;
                 grid-column-start: 2;
@@ -58,10 +60,10 @@ class binaryInputComponent extends HTMLElement{
                 text-align: center;
                 grid-row-start: 3;
                 grid-row-end: 4;
-                grid-column-start: 2;
-                grid-column-end: 3;
+                grid-column-start: 1;
+                grid-column-end: 2;
                 justify-self: center;
-                align-self: flex-start;
+                align-self: center;
                 border-radius: 15px;
                 max-width: 110px;
             }
@@ -165,7 +167,7 @@ class binaryInputComponent extends HTMLElement{
                 <label for="binary-positive" id="positive-label">Yes</label>
                 <input type="radio" name="binary" id="binary-negative" value="no"></input>
                 <label for="binary-negative" id="negative-label">No</label>
-                <button type="submit" id="next-btn">Next</button>
+                <button type="" id="next-btn">Next</button>
             </form>
         </div>
         `;
@@ -173,8 +175,6 @@ class binaryInputComponent extends HTMLElement{
     connectedCallback(){
 		this.question = this.getAttribute('question');
         this.numQuestion = this.getAttribute('numQuestion');
-		console.log(this.numQuestion);
-		console.log(this.question);
 		this.render();
 		if (this.numQuestion != '1'){
             let inputContainer = this.shadowRoot.querySelector('.input-container');
