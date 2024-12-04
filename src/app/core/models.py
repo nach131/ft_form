@@ -232,3 +232,20 @@ class SingleChoiceAnswer(models.Model):
 
 #     def __str__(self):
 #         return f"Answer from {self.user} to '{self.question}'"
+
+## apardo-m
+
+class MultipleQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'Multiple question'
+    text = models.CharField(max_length=250, verbose_name='Pregunta', blank=False, null=False)
+    options = models.JSONField(default=dict)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'Multiple question'
+
+    def __str__(self):
+        return self.text
+
