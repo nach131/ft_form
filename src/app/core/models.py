@@ -22,6 +22,7 @@ import secrets
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.core.validators import MinLengthValidator
+from django.core.exceptions import ValidationError
 
 
 class UserManager(BaseUserManager):
@@ -158,6 +159,80 @@ class OptionQuestion(models.Model):
     def __str__(self):
         return self.text
 
+class EmailQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'Email question'
+    text = models.CharField(max_length=320, verbose_name='Pregunta', blank=False, null=False)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'mail question'
+        #db_table = 'email_question' Se recomienda sin espacios, porque!
+        # constraints = [
+        #     models.UniqueConstraint(fields=['order', 'form'], name='unique_order_per_form')
+        # ] garantiza que no se repitan numeros de pregunta dentro del form lo que evita que se repitan preguntas en el mismo formulario
+
+    def __str__(self):
+        return f"Pregunta {self.order}: {self.text}"
+    
+class ScaleQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'Scale question'
+    text = models.CharField(max_length=320, verbose_name='Pregunta', blank=False, null=False)
+    min_value = models.IntegerField(verbose_name='Valor mínimo', default=1)
+    max_value = models.IntegerField(verbose_name='Valor máximo', default=5)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+    
+    class Meta:
+        db_table = 'Scale question'
+    
+    def __str__(self):
+        return f"{self.text} ({self.min_value} - {self.max_value})"
+    
+class DateQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'Date question'
+    text = models.CharField(max_length=320, verbose_name='Pregunta', blank=False, null=False)
+    value = models.DateField(verbose_name='Fecha', default=timezone.now)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+    
+    class Meta:
+        db_table = 'Date question'
+    
+    def __str__(self):
+        return f"{self.text} ({self.value})"
+
+class URLQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'URL question'
+    text = models.CharField(max_length=320, verbose_name='Pregunta', blank=False, null=False)
+    url = models.URLField(verbose_name='URL', blank=False, null=False)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+    
+    class Meta:
+        db_table = 'URL question'
+    
+    def __str__(self):
+        return f"{self.text} ({self.url})"
+
+class FileQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'File question'
+    text = models.CharField(max_length=320, verbose_name='Pregunta', blank=False, null=False)
+    file = models.FileField(upload_to='uploads/', verbose_name='Archivo', blank=False, null=False)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+    
+    class Meta:
+        db_table = 'File question'
+        
+    def __str__(self):
+        return f"{self.text} ({self.file})"
+
 class   SentForm(models.Model):
     form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -215,6 +290,58 @@ class SingleChoiceAnswer(models.Model):
     
     def __str__(self):
         return f"Single Choice Answer: {self.value}"
+    
+class EmailAnswer(models.Model):
+    """Modelo para respuestas tipo selección única."""
+    value = models.EmailField(max_length=320, blank=True, null=True)
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name='email_answers')
+    question_id = models.ForeignKey(EmailQuestion, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"Email Answer: {self.value} for Question ID {self.question_id}"
+
+class ScaleAnswer(models.Model):
+	"""Modelo para respuestas tipo escala."""
+	value = models.IntegerField()
+	answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+	question_id = models.ForeignKey(ScaleQuestion, on_delete=models.CASCADE)
+	
+	def clean(self):
+		"""Valida que el valor esté dentro del rango de la pregunta."""
+		if not (self.question_id.min_value <= self.value <= self.question_id.max_value):
+			raise ValidationError(
+				f"El valor debe estar entre {self.question_id.min_value} y {self.question_id.max_value}."
+			)
+
+	def __str__(self):
+		return f"Scale Answer: {self.value}"
+
+class DateAnswer(models.Model):
+    """Modelo para respuestas tipo fecha."""
+    value = models.DateField()
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    question_id = models.ForeignKey(DateQuestion, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"Date Answer: {self.value}"
+    
+class URLAnswer(models.Model):
+    """Modelo para respuestas tipo URL."""
+    value = models.URLField()
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    question_id = models.ForeignKey(URLQuestion, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"URL Answer: {self.value}"
+    
+class FileAnswer(models.Model):
+    """Modelo para respuestas tipo archivo."""
+    value = models.FileField(upload_to='uploads/')
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    question_id = models.ForeignKey(FileQuestion, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"File Answer: {self.value}"
 
 # class Answer(models.Model):
 #     """Modelo para representar respuestas a preguntas específicas."""

@@ -21,7 +21,7 @@ class SentFormView(APIView):
         except SentForm.DoesNotExist:
             return Response(
                 {"detail": "Formulario no encontrado"},
-                 status=status.HTTP_404_NOT_FOUND,
+                status=status.HTTP_404_NOT_FOUND,
             )
         if now() < sent_form.sended:
             return Response(
@@ -30,7 +30,7 @@ class SentFormView(APIView):
             )
         serializer = SentFormSerializer(sent_form)
         return Response(serializer.data)
-    
+
 class   FormsByUserView(APIView):
     # permission_classe = [IsAuthenticated]
 
@@ -43,7 +43,7 @@ class   FormsByUserView(APIView):
         except SentForm.DoesNotExist:
             return Response(
                 {"detail": "Formularios no encontrados"},
-                 status=status.HTTP_404_NOT_FOUND,
+                status=status.HTTP_404_NOT_FOUND,
             )
         serializer = UserFormsSerializer(user_forms, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
