@@ -1,10 +1,2 @@
-WARNING 2024-12-05 12:32:25,115 basehttp "GET /static/static/ HTTP/1.1" 404 1781
-WARNING 2024-12-05 12:32:30,659 basehttp "GET /static/static/ HTTP/1.1" 404 1781
-WARNING 2024-12-05 12:34:45,648 log Not Found: /api/sent-form/1/2/
-WARNING 2024-12-05 12:34:45,648 basehttp "GET /api/sent-form/1/2/ HTTP/1.1" 404 37
-WARNING 2024-12-05 12:35:10,987 log Not Found: /api/sent-form/2/1/
-WARNING 2024-12-05 12:35:10,988 basehttp "GET /api/sent-form/2/1/ HTTP/1.1" 404 37
-WARNING 2024-12-05 12:36:50,130 log Not Found: /api/sent-form/1/1/
-WARNING 2024-12-05 12:36:50,131 basehttp "GET /api/sent-form/1/1/ HTTP/1.1" 404 37
-WARNING 2024-12-05 12:37:38,079 log Not Found: /api/sent-form/1/1/
-WARNING 2024-12-05 12:37:38,079 basehttp "GET /api/sent-form/1/1/ HTTP/1.1" 404 37
+WARNING 2024-12-05 18:00:15,791 log Not Found: /favicon.ico
+WARNING 2024-12-05 18:00:15,791 basehttp "GET /favicon.ico HTTP/1.1" 404 4410

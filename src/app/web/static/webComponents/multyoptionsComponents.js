@@ -1,9 +1,146 @@
-class TemplateComponent extends HTMLElement{
+class MultyOptions extends HTMLElement{
     constructor(){
         super();
         let shadow = this.attachShadow({mode: 'open'});
         let estilo = document.createElement('style');
-        estilo.textContent = /*css*/``;
+        estilo.textContent = /*css*/`
+			:host{
+            color: #fff;
+            width: 100vw;
+            height: 100vh;
+            font-family: 'Source Sans 3';
+            display: block;
+        }
+		.form-card{
+            border: 1px solid black;
+                height: 55vh;
+                width: 60vw;
+                background: transparent;
+                color: #fff;
+                text-align: center;
+                display:grid;
+                grid-template-rows: 1fr 1fr 1fr 1fr;
+                grid-template-columns: 1fr 1fr 1fr ; 
+        }
+        #question{
+                top: 50%;
+                left: 45%;
+                transform: translate(-50%, -50%);
+                position: absolute;
+        }
+        .num-question{
+                text-align: left;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+        }
+		#next-btn{
+            background-color: #FC0;
+            border: 0px solid #000;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 500;
+            font-family: 'Source Sans 3';
+            text-align: center;
+            grid-row-start: 3;
+            grid-row-end: 4;
+            grid-column-start: 3;
+            grid-column-end: 4;
+            justify-self: flex-start;
+            align-self: center;
+            border-radius: 15px;
+            width: 64px;
+			height: 25px;
+        }
+        #prev-btn{
+            background-color: #00B8F0;
+            color: #fff;
+            border: 0px solid #000;
+            font-size: 0.9rem;
+            font-weight: 500;
+            font-family: 'Source Sans 3';
+            text-align: center;
+            grid-row-start: 3;
+            grid-row-end: 4;
+            grid-column-start: 2;
+            grid-column-end: 3;
+            justify-self: center;
+            align-self: center;
+            border-radius: 15px;
+            width: 64px;
+			height: 25px;
+        }
+		.option-label{
+			display: flex;
+    		align-items: center;
+		}
+		.option-label input {
+    		order: 1;
+    		margin-left: 8px;
+		}
+		.question-title{
+                display: flex;
+				font-family: 'Source Sans 3';
+                justify-content:flex-start;
+                align-items: center;
+                grid-column-start: 2;
+                grid-column-end: 5;
+                grid-row-start: 1;
+                grid-row-end: 2;
+                justify-self: stretch;
+        }
+		.input-container{
+                grid-row-start: 2;
+                grid-row-end: 5;
+                grid-column-start: 2;
+                grid-column-end: 4;
+                display: grid;
+                grid-template-rows: 1fr 1fr 1fr;
+                grid-template-columns: 1fr 1fr 1fr;
+                align-items: center;
+        }
+		.options-container{
+			display: flex;
+			flex-direction: column;
+			grid-row-start: 1;
+			grid-row-end: 3;
+			justify-content: space-evenly;
+			grid-column-start: span 3;
+			align-self: stretch;
+		}
+		.pair-container{
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			align-self: flex-start;
+		}
+		svg{
+                margin: 5px;
+            }
+        p{
+            font-size: 1.5em;
+        }
+		h1{
+				font-weight: 400;
+				font-size: 2.5em;
+			}
+		input[type="checkbox"]{
+			width: 20px; 
+			height: 20px; 
+			appearance: none;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			background-color: #000; 
+			border: 1px solid #fff; 
+			cursor: pointer; 
+		}
+		input[type="checkbox"]:checked {
+   			background-color: #00B8F0; 
+    		border: 2px solid #fff; 
+		}
+		`;
         shadow.appendChild(estilo);
         let content = document.createElement('div');
 		content.id = 'question';
@@ -30,7 +167,7 @@ class TemplateComponent extends HTMLElement{
                     <h1 id="binary-question" for="binary">${this.question}</h1>
                 </div>
                 <form action="" class="input-container">
-                 
+					<button type="" id="next-btn">Next</button>
                 </form>
             </div>
         `;
@@ -38,7 +175,31 @@ class TemplateComponent extends HTMLElement{
     connectedCallback(){
         this.question = this.getAttribute('question');
         this.numQuestion = this.getAttribute('numQuestion');
+		let options = JSON.parse(this.getAttribute('options'));
 		this.render();
+		let inputContainer = this.shadowRoot.querySelector('.input-container');
+		let optionsContainer = document.createElement('div');
+		optionsContainer.classList.add('options-container');
+		inputContainer.appendChild(optionsContainer);
+		
+		options.choices.forEach(option => {
+			let inputContainer = this.shadowRoot.querySelector('.options-container');
+			let pairContainer = document.createElement('div');
+			pairContainer.classList.add('pair-container');
+			let input = document.createElement('input');
+			input.type = 'checkbox';
+			input.name = 'options';
+            input.value = option;
+			
+			
+			let label = document.createElement('label');
+			label.className = 'option-label';
+			label.textContent = option;
+			pairContainer.appendChild(input);
+			pairContainer.appendChild(label);
+
+			inputContainer.appendChild(pairContainer);
+		});
 		if (this.numQuestion != '1'){
             let inputContainer = this.shadowRoot.querySelector('.input-container');
             let prevBtn =  document.createElement('button');
@@ -50,4 +211,4 @@ class TemplateComponent extends HTMLElement{
     disconnectedCallback(){
     }
 }
-window.customElements.define('template-component', TemplateComponent);
+window.customElements.define('options-tag', MultyOptions);
