@@ -71,7 +71,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     last_activity = models.DateTimeField(null=True, blank=True)
 
-
     settings = models.OneToOneField(
         SettingsUser, on_delete=models.CASCADE, related_name="user",
         null=True, blank=True)
@@ -153,6 +152,7 @@ class OptionQuestion(models.Model):
     is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
     form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
 
+
     class Meta:
         db_table = 'Option question'
 
@@ -173,7 +173,7 @@ class Answer(models.Model):
     """Modelo para representar respuestas a preguntas específicas."""
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="answers")
-    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+    sent_form = models.ForeignKey(SentForm, on_delete=models.CASCADE)
     # question = models.ForeignKey(
     #     Question, on_delete=models.CASCADE, related_name="answers"
     # )

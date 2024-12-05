@@ -47,6 +47,7 @@ def gen_state():
 	return ''.join(random.choices(string.ascii_letters + string.digits, k=16))
 
 class Callback42API(APIView):
+    """ """
     def get(self, request):
 
         code = request.GET.get('code')
@@ -71,11 +72,8 @@ class Callback42API(APIView):
             response_to_front = saveUser(str(intra_token))
             cont = response_to_front.content
             data_res_front = json.loads(cont)
-            # return JsonResponse(response_to_front)
             if (response_to_front.status_code == 500):
                 raise AuthenticationFailed("Couldn't find or save the user")
-            print("Response is:", cont)
-            #user = User.objects.get(username=response_to_front.get('username'))
             try:
                 user = User.objects.get(username=data_res_front.get('username'))
             except User.DoesNotExist:
@@ -84,15 +82,9 @@ class Callback42API(APIView):
                 raise Exception("Multiple users found with the same username")
             django_login(request, user)
             refresh_token = RefreshToken.for_user(user)
-            # logger.info(refresh_token["exp"])
-            # logger.info(refresh_token.access_token["exp"])
-            # logger.info(datetime.now().timestamp())
             formatResponse = data_res_front | {
                 'refresh_token': str(refresh_token),
                 'access': str(refresh_token.access_token)
-            #    'refresh_exp': str(refresh_token["exp"] - datetime.now().timestamp()),
-            #    'token_exp': str(refresh_token.access_token["exp"] - datetime.now().timestamp()),
-                #'username': user.username,
             }
             return JsonResponse(formatResponse)
         except Exception as e:
@@ -104,10 +96,8 @@ def saveUser(token):
         if user_res.status_code != 200:
             raise AuthenticationFailed("Bad response code while authentication")
         user_data = user_res.json()
-       # user_img = user_data.get('image', {})
         url_coal = "/v2/users/" + user_data.get('login') + "/coalitions"
         coal_res = get42(url_coal, None, token)
-        # test = HttpResponse(coal_res)
         coalition = None
         color = "#00BABC"
         coalition_img = None
@@ -118,34 +108,21 @@ def saveUser(token):
             coalition = coal_data[0]['name']
             color = coal_data[0]['color']
             coalition_img = coal_data[0]['cover_url']
-        
-        # coal_data = json.loads(coal_res.text)
-        # print("Raw Response Content:", coal_res.headers.get('Content-Type'))
-        # return JsonResponse(coal_data)
-        # coal_img = coal_data.get('image', {})
-        # HERE EXTRACT DATA ABOUT COALITION
         exist = User.objects.filter(username=user_data.get('login')).exists()
-        print("User data json:", color)
-        print("Coal data:", coal_data)
         if not exist:
             user = User(username=user_data.get('login'), is_42_staf=user_data.get('staff?'), email=user_data.get('email'))
             user.save()
-        # add coalition, piscine / student / alumni, image
-        # necesitais el color?
+        # piscine / student / alumni
         response_to_front = {
                 'status': 200,
                 'username': user_data.get('login'),
                 'is_staff': user_data.get('staff?'),
-                'profile_img': user_data['image']['link'],
-            #   'profile_img': user_img.get('versions', {}).get('small'),
+                'user_img': user_data['image']['link'],
                 'coalition': coalition,
                 'color': color,
-               # 'coalition_img': color #tambien hay 'image_url' y 'color'
                 'coalition_img': coalition_img,
                 'title': title
-                #'username': user.username,
             }
-        print("Raw Response Content:", response_to_front)
         return JsonResponse(response_to_front)
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)

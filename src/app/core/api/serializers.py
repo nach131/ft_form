@@ -10,17 +10,17 @@ from datetime import timedelta
 class TextQuestionSerializer(ModelSerializer):
     class Meta:
         model = TextQuestion
-        fields = ['order', 'type', 'text', 'max_chars', 'min_chars', 'is_required']
+        fields = ['id', 'order', 'type', 'text', 'max_chars', 'min_chars', 'is_required']
 
 class BooleanQuestionSerializer(ModelSerializer):
     class Meta:
         model = BooleanQuestion
-        fields = ['order', 'type', 'text', 'is_required']
+        fields = ['id', 'order', 'type', 'text', 'is_required']
 
 class OptionQuestionSerializer(ModelSerializer):
     class Meta:
         model = OptionQuestion
-        fields = ['order', 'type', 'text', 'options', 'is_required']
+        fields = ['id', 'order', 'type', 'text', 'options', 'is_required']
 
 class SentFormSerializer(ModelSerializer):
     form_name = serializers.CharField(source='form_id.name', read_only=True)
