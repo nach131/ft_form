@@ -35,11 +35,12 @@ class binaryInputComponent extends HTMLElement{
                 font-size: 1.5rem;
             }
             #next-btn{
+				
                 background-color: #FC0;
                 border: 0px solid #000;
 				color:#fff;
                 font-size: 1rem;
-                font-weight: 700;
+                font-weight: 500;
                 font-family: 'Source Sans 3';
                 text-align: center;
 				justify-self: flex-start;
@@ -48,7 +49,8 @@ class binaryInputComponent extends HTMLElement{
                 grid-column-start: 2;
                 grid-column-end: 3;
                 border-radius: 15px;
-                max-width: 110px;
+                width: 64px;
+				height: 25px;
             }
             #prev-btn{
                 background-color: #00B8F0;
@@ -65,7 +67,8 @@ class binaryInputComponent extends HTMLElement{
                 justify-self: center;
                 align-self: center;
                 border-radius: 15px;
-                max-width: 110px;
+                width: 64px;
+				height: 25px;
             }
             #binary-positive{
                 grid-row-start: 1;
@@ -108,6 +111,7 @@ class binaryInputComponent extends HTMLElement{
             }
             .question-title{
                 display: flex;
+				font-family: 'Source Sans 3';
                 justify-content:flex-start;
                 align-items: center;
                 grid-column-start: 2;

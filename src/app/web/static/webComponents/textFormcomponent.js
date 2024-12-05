@@ -36,20 +36,6 @@ class TextComponent extends HTMLElement{
                 font-size: 1.5rem;
         }
         #next-btn{
-                background-color: #FC0;
-                border: 0px solid #000;
-                font-size: 1rem;
-                font-weight: 700;
-                font-family: 'Source Sans 3';
-                text-align: center;
-                grid-row-start: 3;
-                grid-row-end: 4;
-                grid-column-start: 2;
-                grid-column-end: 3;
-                border-radius: 15px;
-                max-width: 110px;
-        }
-        #next-btn{
             background-color: #FC0;
             border: 0px solid #000;
             color: #fff;
@@ -64,7 +50,8 @@ class TextComponent extends HTMLElement{
             justify-self: flex-start;
             align-self: flex-start;
             border-radius: 15px;
-            max-width: 110px;
+            width: 64px;
+			height: 25px;
         }
         #prev-btn{
             background-color: #00B8F0;
@@ -81,10 +68,12 @@ class TextComponent extends HTMLElement{
             justify-self: center;
             align-self: flex-start;
             border-radius: 15px;
-            max-width: 110px;
+            width: 64px;
+			height: 25px;
         }
         .question-title{
                 display: flex;
+				font-family: 'Source Sans 3';
                 justify-content:flex-start;
                 align-items: center;
                 grid-column-start: 2;
@@ -123,6 +112,10 @@ class TextComponent extends HTMLElement{
                 font-weight: 400;
                 text-align: justify;
             }
+			h1{
+				font-weight: 400;
+				font-size: 2.5em;
+			}
         `;
         shadow.appendChild(estilo);
         let content = document.createElement('div');
