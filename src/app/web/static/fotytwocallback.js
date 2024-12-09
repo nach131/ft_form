@@ -17,7 +17,7 @@ if (code && state){
             document.cookie = `refresh_token=${data.refresh_token}`;
             localStorage.setItem('username', data.username);
 
-            localStorage.setItem('user_img', data.profile_img);
+            localStorage.setItem('user_img', data.user_img);
             localStorage.setItem('is_staff', data.is_staff);
             localStorage.setItem('coalition', data.coalition);
             localStorage.setItem('color', data.color);
