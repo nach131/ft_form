@@ -8,7 +8,10 @@ from .models import User
 from django.utils.translation import gettext_lazy as _
 
 from core import models
-from .models import Form, TextQuestion, BooleanQuestion, OptionQuestion, SentForm
+from .models import (Form, TextQuestion, BooleanQuestion, OptionQuestion, MultipleChoiceQuestion,
+                    EmailQuestion, NumberQuestion, ScaleQuestion, DateQuestion, URLQuestion,
+                    FileQuestion, SentForm,)
+
 
 class TextQuestionInLine(admin.TabularInline):
     model = TextQuestion
@@ -22,15 +25,52 @@ class OptionQuestionInLine(admin.TabularInline):
     model = OptionQuestion
     extra = 1
 
+class MultipleChoiceQuestionInLine(admin.TabularInline):
+    model = MultipleChoiceQuestion
+    extra = 1
+
+class NumberQuestionInLine(admin.TabularInline):
+    model = NumberQuestion
+    extra = 1
+
+class EmailQuestionInLine(admin.TabularInline):
+    model = EmailQuestion
+    extra = 1
+
+class ScaleQuestionInLine(admin.TabularInline):
+    model = ScaleQuestion
+    extra = 1
+
+class DateQuestionInLine(admin.TabularInline):
+    model = DateQuestion
+    extra = 1
+
+class URLQuestionInLine(admin.TabularInline):
+    model = URLQuestion
+    extra = 1
+    
+class FileQuestionInLine(admin.TabularInline):
+    model = FileQuestion
+    extra = 1
+
 class   FormAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated')
 
-    inlines = [TextQuestionInLine, BooleanQuestionInLine, OptionQuestionInLine]
+    inlines = [TextQuestionInLine, BooleanQuestionInLine, OptionQuestionInLine, EmailQuestionInLine,
+            ScaleQuestionInLine, DateQuestionInLine, URLQuestionInLine, FileQuestionInLine,
+            MultipleChoiceQuestionInLine, NumberQuestionInLine]
 
 admin.site.register(Form, FormAdmin)
 admin.site.register(TextQuestion)
 admin.site.register(BooleanQuestion)
 admin.site.register(OptionQuestion)
+admin.site.register(MultipleChoiceQuestion)
+admin.site.register(NumberQuestion)
+admin.site.register(EmailQuestion)
+admin.site.register(ScaleQuestion)
+admin.site.register(DateQuestion)
+admin.site.register(URLQuestion)
+admin.site.register(FileQuestion)
 admin.site.register(SentForm)
 
 #admin.site.register(User)

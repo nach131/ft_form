@@ -5,8 +5,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied
 from rest_framework import status
 from django.utils.timezone import now
-from core.models import SentForm, TextQuestion, BooleanQuestion, OptionQuestion
-from core.models import Answer, CharFieldAnswer, BooleanAswer, SingleChoiceAnswer
+from core.models import (SentForm, TextQuestion, BooleanQuestion, OptionQuestion, MultipleChoiceQuestion,
+                         NumberQuestion, EmailQuestion, ScaleQuestion, DateQuestion, URLQuestion, FileQuestion)
+from core.models import (Answer, CharFieldAnswer, BooleanAswer, SingleChoiceAnswer, MultipleChoiceAnswer, NumberAnswer,
+                         EmailAnswer, ScaleAnswer,DateAnswer, URLAnswer, FileAnswer)
 from .serializers import SentFormSerializer, UserFormsSerializer
 from .permissions import IsUserOfSentForm
 
@@ -81,7 +83,7 @@ class SentFormView(APIView):
             question_id = response.get("question_id")
             value = response.get("value")
 
-            if question_type == "TextQuestion":
+            if question_type == "text":
                 # Validamos que esa pregunta exista, es decir, que el question_id
                 #que se envía realmente exista en nuestra BBDD
                 try:
@@ -96,7 +98,7 @@ class SentFormView(APIView):
                     question_id = question,
                 )
 
-            elif question_type == "BooleanQuestion":
+            elif question_type == "boolean":
                 # Validamos que esa pregunta exista, es decir, que el question_id
                 #que se envía realmente exista en nuestra BBDD
                 try:
@@ -111,7 +113,7 @@ class SentFormView(APIView):
                     question_id = question,
                 )
 
-            elif question_type == "OptionQuestion":
+            elif question_type == "option":
                 # Validamos que esa pregunta exista, es decir, que el question_id
                 #que se envía realmente exista en nuestra BBDD
                 try:
@@ -125,6 +127,110 @@ class SentFormView(APIView):
                     answer_id = answer,
                     question_id = question,
                 )
+            elif question_type == "multiple_choice":
+                # Validamos que esa pregunta exista, es decir, que el question_id
+                #que se envía realmente exista en nuestra BBDD
+                try:
+                    question = MultipleChoiceQuestion.objects.get(id=question_id)
+                except MultipleChoiceQuestion.DoesNotExist:
+                    return Response({"detail": f"Pregunta multi opciones con id {question_id} no encontrada"},
+                        status=status.HTTP_404_NOT_FOUND,)
+                # Ahora creamos el registro de MultipleChoiceAnswer
+                MultipleChoiceAnswer.objects.create(
+                    value = value,
+                    answer_id = answer,
+                    question_id = question,
+                )
+
+            elif question_type == "number":
+                # Validamos que esa pregunta exista, es decir, que el question_id
+                #que se envía realmente exista en nuestra BBDD
+                try:
+                    question =NumberQuestion.objects.get(id=question_id)
+                except NumberQuestion.DoesNotExist:
+                    return Response({"detail": f"Pregunta number con id {question_id} no encontrada"},
+                        status=status.HTTP_404_NOT_FOUND,)
+                # Ahora creamos el registro de NumberAnswer
+                NumberAnswer.objects.create(
+                    value = value,
+                    answer_id = answer,
+                    question_id = question,
+                )
+
+            elif question_type == "email":
+                # Validamos que esa pregunta exista, es decir, que el question_id
+                #que se envía realmente exista en nuestra BBDD
+                try:
+                    question =EmailQuestion.objects.get(id=question_id)
+                except EmailQuestion.DoesNotExist:
+                    return Response({"detail": f"Pregunta email con id {question_id} no encontrada"},
+                        status=status.HTTP_404_NOT_FOUND,)
+                # Ahora creamos el registro de EmailAnswer
+                EmailAnswer.objects.create(
+                    value = value,
+                    answer_id = answer,
+                    question_id = question,
+                )
+
+            elif question_type == "scale":
+                # Validamos que esa pregunta exista, es decir, que el question_id
+                #que se envía realmente exista en nuestra BBDD
+                try:
+                    question =ScaleQuestion.objects.get(id=question_id)
+                except ScaleQuestion.DoesNotExist:
+                    return Response({"detail": f"Pregunta scale con id {question_id} no encontrada"},
+                        status=status.HTTP_404_NOT_FOUND,)
+                # Ahora creamos el registro de ScaleAnswer
+                ScaleAnswer.objects.create(
+                    value = value,
+                    answer_id = answer,
+                    question_id = question,
+                )
+
+            elif question_type == "date":
+                # Validamos que esa pregunta exista, es decir, que el question_id
+                #que se envía realmente exista en nuestra BBDD
+                try:
+                    question =DateQuestion.objects.get(id=question_id)
+                except DateQuestion.DoesNotExist:
+                    return Response({"detail": f"Pregunta date con id {question_id} no encontrada"},
+                        status=status.HTTP_404_NOT_FOUND,)
+                # Ahora creamos el registro de DateAnswer
+                DateAnswer.objects.create(
+                    value = value,
+                    answer_id = answer,
+                    question_id = question,
+                )
+
+            elif question_type == "url":
+                # Validamos que esa pregunta exista, es decir, que el question_id
+                #que se envía realmente exista en nuestra BBDD
+                try:
+                    question =URLQuestion.objects.get(id=question_id)
+                except URLQuestion.DoesNotExist:
+                    return Response({"detail": f"Pregunta url con id {question_id} no encontrada"},
+                        status=status.HTTP_404_NOT_FOUND,)
+                # Ahora creamos el registro de URLAnswer
+                URLAnswer.objects.create(
+                    value = value,
+                    answer_id = answer,
+                    question_id = question,
+                )
+
+            elif question_type == "file":
+                # Validamos que esa pregunta exista, es decir, que el question_id
+                #que se envía realmente exista en nuestra BBDD
+                try:
+                    question =FileQuestion.objects.get(id=question_id)
+                except FileQuestion.DoesNotExist:
+                    return Response({"detail": f"Pregunta file con id {question_id} no encontrada"},
+                        status=status.HTTP_404_NOT_FOUND,)
+                # Ahora creamos el registro de FileAnswer
+                FileAnswer.objects.create(
+                    value = value,
+                    answer_id = answer,
+                    question_id = question,
+                )
 
             else:
                 return Response({"detail": f"Tipo de pregunta desconocido: {question_type}"},
@@ -134,6 +240,10 @@ class SentFormView(APIView):
         # Cambiamos el valor de SentForm.answered a True
         sent_form.answered = True
         sent_form.save()
+
+        # Actualizamos el valor de answer.is_valid a true
+        answer.is_valid = True
+        answer.save()
 
         return Response({"detail": "Respuestas guardadas correctamente"},
                     status=status.HTTP_201_CREATED,)
