@@ -34,9 +34,12 @@ endif
 build: create-dirs pull-images
 	@echo "Building Docker images..."
 	@$(DOCKER_COMPOSE) build
+#	@chmod -R 777 data/log/
 	@$(DOCKER_COMPOSE) $(DC_RUN_APP) "python manage.py wait_for_db"
 	@rm -rf app/core/migrations/__pycache__/*
-	@rm app/core/migrations/0001_initial.py
+	@if [ -f "app/core/migrations/0001_initial.py" ]; then \
+        rm "app/core/migrations/0001_initial.py"; \
+    fi
 
 up:
 	@echo "Running setup tasks..."
@@ -57,7 +60,7 @@ control:
 
 mi:
 	@echo "Running Migrations..."
-	@chmod -R 777  app/core/migrations/
+# @chmod -R 777  app/core/migrations/
 	@$(DOCKER_COMPOSE) $(DC_RUN_APP) "python manage.py makemigrations"
 	@$(DOCKER_COMPOSE) $(DC_RUN_APP) "python manage.py migrate"
 	
@@ -78,7 +81,9 @@ fclean: clean
 	@docker-compose down --rmi all --volumes --remove-orphans
 	@docker system prune -a --volumes
 	@rm -rf app/core/migrations/__pycache__/*
-	@rm app/core/migrations/0001_initial.py
+	@if [ -f "app/core/migrations/0001_initial.py" ]; then \
+        rm "app/core/migrations/0001_initial.py"; \
+    fi
 	@echo "Deleted containers, images, and volumes."
 	@rm -rf $(DB_DIR)  $(LOG_DIR)
 	
@@ -117,7 +122,6 @@ deploy-fclean: deploy-clean
 
 .PHONY: all create-dirs pull-images build up clean down fclean super status \
 test control mi deploy-build deploy-up deploy-mi deploy-down deploy-mi
-
 
 # Idiomas
 # 	docker compose run --rm app sh -c "python manage.py update_online_status"

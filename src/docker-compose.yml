@@ -11,7 +11,8 @@ services:
       - ./app:/app
       - static-data:/vol/web
       - media-data:/vol/web/media
-      - log-data:/vol/log:rw
+      - cache-data:/vol/cache
+      # - log-data:/vol/log:rw
     command: >
       sh -c "python manage.py wait_for_db &&
               python manage.py migrate &&
@@ -37,6 +38,8 @@ services:
     container_name: adminer_form
     image: adminer
     restart: always
+    volumes:
+      - cache-data:/vol/cache
     ports:
       - 8080:8080
 
@@ -59,10 +62,11 @@ volumes:
       type: none
       device: ./data/static/media
       o: bind
-  log-data:
+  
+  cache-data:
     driver: local
     driver_opts:
       type: none
-      device: ./data/log
+      device: ./app/core/migrations
       o: bind
   

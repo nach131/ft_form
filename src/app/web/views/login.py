@@ -43,39 +43,30 @@ def redirect_api(request):
     logger.info(f"Redirect URL: {go_to_api}")
     return redirect(go_to_api)
 
+
+
 def gen_state():
 	return ''.join(random.choices(string.ascii_letters + string.digits, k=16))
 
 class Callback42API(APIView):
+    """ """
     def get(self, request):
 
         code = request.GET.get('code')
         state = request.GET.get('state')
-        logger.info(f"Code: {code}, State: {state}")
+#        logger.info(f"Code: {code}, State: {state}")
         if not state or not code:
             raise AuthenticationFailed("Invalid authentication parameters")
-        params = {
-            'grant_type': 'authorization_code',
-            'client_id': os.environ['UID'],
-            'client_secret': os.environ['SECRET'],
-            'code': code,
-            'redirect_uri': os.environ['REDIRECT_URI'],
-            'state': state
-        }
         try:
-            response = post42("/oauth/token", params)
+            response = post42("/oauth/token", defaultParams(code, state))
             if response.status_code != 200:
                 raise AuthenticationFailed("Bad response code while authentication")
             data = response.json()
             intra_token = data.get("access_token")
-            response_to_front = saveUser(str(intra_token))
-            cont = response_to_front.content
-            data_res_front = json.loads(cont)
-            # return JsonResponse(response_to_front)
-            if (response_to_front.status_code == 500):
-                raise AuthenticationFailed("Couldn't find or save the user")
-            print("Response is:", cont)
-            #user = User.objects.get(username=response_to_front.get('username'))
+            res_front = saveUser(str(intra_token))
+            data_res_front = json.loads(res_front.content)
+            if res_front.status_code == 500:
+                raise AuthenticationFailed(res_front.content['Error'])
             try:
                 user = User.objects.get(username=data_res_front.get('username'))
             except User.DoesNotExist:
@@ -84,20 +75,13 @@ class Callback42API(APIView):
                 raise Exception("Multiple users found with the same username")
             django_login(request, user)
             refresh_token = RefreshToken.for_user(user)
-            # logger.info(refresh_token["exp"])
-            # logger.info(refresh_token.access_token["exp"])
-            # logger.info(datetime.now().timestamp())
             formatResponse = data_res_front | {
                 'refresh_token': str(refresh_token),
-                'access': str(refresh_token.access_token),
-                'id': user.id
-            #    'refresh_exp': str(refresh_token["exp"] - datetime.now().timestamp()),
-            #    'token_exp': str(refresh_token.access_token["exp"] - datetime.now().timestamp()),
-                #'username': user.username,
+                'access': str(refresh_token.access_token)
             }
             return JsonResponse(formatResponse)
         except Exception as e:
-            return JsonResponse({'errrrror': str(e)}, status=400)
+            return JsonResponse({'Error': str(e)}, status=400)
 
 def saveUser(token):
     try:
@@ -105,52 +89,57 @@ def saveUser(token):
         if user_res.status_code != 200:
             raise AuthenticationFailed("Bad response code while authentication")
         user_data = user_res.json()
-       # user_img = user_data.get('image', {})
-        url_coal = "/v2/users/" + user_data.get('login') + "/coalitions"
-        coal_res = get42(url_coal, None, token)
-        # test = HttpResponse(coal_res)
-        coalition = None
-        color = "#00BABC"
-        coalition_img = None
-        title = "Title"
-        coal_data = coal_res.json()
-        # change this check:
-        if coal_data:
-            coalition = coal_data[0]['name']
-            color = coal_data[0]['color']
-            coalition_img = coal_data[0]['cover_url']
-        
-        # coal_data = json.loads(coal_res.text)
-        # print("Raw Response Content:", coal_res.headers.get('Content-Type'))
-        # return JsonResponse(coal_data)
-        # coal_img = coal_data.get('image', {})
-        # HERE EXTRACT DATA ABOUT COALITION
+        if not user_data.get('login'):
+            raise AuthenticationFailed("Couldn't recognize the user")
         exist = User.objects.filter(username=user_data.get('login')).exists()
-        print("User data json:", color)
-        print("Coal data:", coal_data)
         if not exist:
-            user = User(username=user_data.get('login'), is_42_staf=user_data.get('staff?'), email=user_data.get('email'))
+            user = User(username=user_data.get('login'), is_42_staf=user_data.get('staff?'), email=user_data.get('email'), intra_id=user_data.get('id'))
             user.save()
-        # add coalition, piscine / student / alumni, image
-        # necesitais el color?
-        response_to_front = {
-                'status': 200,
-                'username': user_data.get('login'),
-                'is_staff': user_data.get('staff?'),
-                'profile_img': user_data['image']['link'],
-            #   'profile_img': user_img.get('versions', {}).get('small'),
-                'coalition': coalition,
-                'color': color,
-               # 'coalition_img': color #tambien hay 'image_url' y 'color'
-                'coalition_img': coalition_img,
-                'title': title
-                #'username': user.username,
-            }
-        print("Raw Response Content:", response_to_front)
-        return JsonResponse(response_to_front)
+        user_img = None
+        if user_data['image']['link']:
+            user_img = user_data['image']['link']
+        print("BEFORECOAL: ", user_img)
+        coal_data = getCoalition(defaultUser(user_data.get('login'), user_data.get('staff?'), user_img), user_data.get('login'), token)
+        # piscine / student / alumni
+        return JsonResponse(coal_data)
     except Exception as e:
-        return JsonResponse({"error": str(e)}, status=500)
+        return JsonResponse({"Error": str(e)}, status=500)
 
+def defaultUser(login, is_staff, user_img):
+    default =  {
+        # 'status': 200,
+        'username': login,
+        'is_staff': is_staff,
+        'user_img': user_img,
+        'coalition': None,
+        'color': "#00BABC",
+        'coalition_img': None,
+        'title': "No name"      
+    }
+    return default
+
+def getCoalition(default, login, token):
+    url_coal = "/v2/users/" + login + "/coalitions"
+    coal_res = get42(url_coal, None, token)
+    if coal_res.status_code != 200:
+        return default
+    coal_data = coal_res.json()
+    if coal_data:
+        default['coalition'] = coal_data[0]['name']
+        default['color'] = coal_data[0]['color']
+        default['coalition_img'] = coal_data[0]['cover_url']
+    return default
+
+def defaultParams(code, state):
+    params = {
+        'grant_type': 'authorization_code',
+        'client_id': os.environ['UID'],
+        'client_secret': os.environ['SECRET'],
+        'code': code,
+        'redirect_uri': os.environ['REDIRECT_URI'],
+        'state': state
+    }
+    return params
 
 def post42(url, vars):
     url = "https://api.intra.42.fr" + url

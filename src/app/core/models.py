@@ -58,16 +58,18 @@ class User(AbstractBaseUser, PermissionsMixin):
     """User in the system."""
     email = models.EmailField(max_length=100, unique=True)
     username = models.CharField(max_length=100, unique=True)
+    intra_id = models.PositiveIntegerField(default=0)
+#    gender = 
     name = models.CharField(max_length=100, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_cancel = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_42_staf = models.BooleanField(default=False)
-    role = models.CharField(max_length=50,unique=False, blank=True)
-    coalition = JSONField(default=dict)
-    level = models.PositiveIntegerField(default=0)
-    age = models.PositiveIntegerField(default=0)
-    image_url = models.URLField(max_length=200, blank=True, null=True)
+#    role = models.CharField(max_length=50,unique=False, blank=True)
+#    coalition = JSONField(default=dict)
+#    level = models.PositiveIntegerField(default=0)
+#    age = models.PositiveIntegerField(default=0)
+#    image_url = models.URLField(max_length=200, blank=True, null=True)
 
     last_activity = models.DateTimeField(null=True, blank=True)
 
@@ -389,3 +391,19 @@ class FileAnswer(models.Model):
     def __str__(self):
         return f"File Answer: {self.value}"
 
+#     def __str__(self):
+#         return f"Answer from {self.user} to '{self.question}'"
+
+class Campus(models.Model):
+    id_42 = models.IntegerField(unique=True)
+    name = models.CharField(max_length=255, db_index=True)
+
+    def __str__(self):
+        return self.name
+
+class Cursus(models.Model):
+    id_42 = models.IntegerField(unique=True)
+    name = models.CharField(max_length=255, db_index=True)
+
+    def __str__(self):
+        return self.name

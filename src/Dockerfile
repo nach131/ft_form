@@ -50,4 +50,7 @@ ENV PATH="/scripts:$PATH"
 
 USER django-user
 
+RUN rm -rf /vol/cache/__pycache__/*
+RUN chmod -R 777 /vol/cache/__pycache__/
+
 CMD ["run.sh"]
