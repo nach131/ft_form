@@ -31,11 +31,7 @@ def StudentHome(request):
     return render(request, 'studenthome.html')
 
 def StaffHome(request):
-<<<<<<< HEAD
-    return render(request, 'staffhome.html')
-=======
     return render(request, 'staffhome.html')
 
 def answer_form(request):
 	return render(request,'questionaire.html')
->>>>>>> main
