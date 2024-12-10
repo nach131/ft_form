@@ -1,88 +1,251 @@
-WARNING 2024-12-09 19:45:15,377 log Not Found: /favicon.ico
-WARNING 2024-12-09 19:45:15,377 basehttp "GET /favicon.ico HTTP/1.1" 404 4233
-WARNING 2024-12-09 19:45:20,827 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 19:45:20,828 basehttp "GET /login/handleCallback?code=9bee74559e0a6ced420c8d4982c2e6bde9456aa54d086b913fbeda3a7c777028&state=niKxGKlRmsOf34PN HTTP/1.1" 400 85
-WARNING 2024-12-09 19:45:48,776 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 19:45:48,776 basehttp "GET /login/handleCallback?code=48bf4ae2292a5dd6328362ce7982db2922a8ccfa80c09cc2ab3558d4d38b1319&state=VfKeqZN1YpkSIZ7s HTTP/1.1" 400 85
-WARNING 2024-12-09 19:47:45,896 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 19:47:45,896 basehttp "GET /login/handleCallback?code=48bf4ae2292a5dd6328362ce7982db2922a8ccfa80c09cc2ab3558d4d38b1319&state=VfKeqZN1YpkSIZ7s HTTP/1.1" 400 51
-WARNING 2024-12-09 19:47:52,998 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 19:47:52,998 basehttp "GET /login/handleCallback?code=d39aedae2e10dcd1e51e47689371a6fce11c0854f3e9f939bb52ab9b3dd9a952&state=5ZwNKz3PRnGO8XjF HTTP/1.1" 400 61
-WARNING 2024-12-09 19:49:01,084 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 19:49:01,084 basehttp "GET /login/handleCallback?code=d39aedae2e10dcd1e51e47689371a6fce11c0854f3e9f939bb52ab9b3dd9a952&state=5ZwNKz3PRnGO8XjF HTTP/1.1" 400 51
-WARNING 2024-12-09 19:49:07,596 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 19:49:07,596 basehttp "GET /login/handleCallback?code=a477000877ac9183824e4396e5b44add959bed71ee61343d604e1d07b58e8768&state=MUwZabvljnkTNtLG HTTP/1.1" 400 51
-WARNING 2024-12-09 19:50:43,634 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 19:50:43,635 basehttp "GET /login/handleCallback?code=42a8266484bba99467e423cb4b8a57c94c0c21a846b43966bf64fd67506c98c0&state=WhNUJhZRM2rRUdOD HTTP/1.1" 400 61
-WARNING 2024-12-09 19:51:29,666 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 19:51:29,667 basehttp "GET /login/handleCallback?code=02d9bef535ba2a077c3615685ec9b7d2645916698228381dbde922ec2b30e651&state=S5auJcVKXWE0xlau HTTP/1.1" 400 61
-WARNING 2024-12-09 19:52:27,471 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 19:52:27,471 basehttp "GET /login/handleCallback?code=232b54fb7cc70d67fb4e58b899e0f0910220aa128d87c41e6daa1a091f9c62bb&state=mmZdyP5gyws6DWLV HTTP/1.1" 400 61
-WARNING 2024-12-09 19:53:38,513 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 19:53:38,514 basehttp "GET /login/handleCallback?code=0c70dcdc0bbf3f6b2bb49c8efe8f8f8d9a23281844ead5f22295a615afe9cca6&state=jv2IqICTtFzaJ4um HTTP/1.1" 400 61
-WARNING 2024-12-09 19:54:48,300 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 19:54:48,300 basehttp "GET /login/handleCallback?code=3c06f32e4929d1485cd0a3a1d9c759a36d0f94da84653f1169ac3c35a53a4661&state=2G7iuo2EUuPHn0yu HTTP/1.1" 400 61
-WARNING 2024-12-09 19:55:30,601 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 19:55:30,602 basehttp "GET /login/handleCallback?code=91f657406665f935971b254f0f9d5e500f28f7a978bbfd7114b22af04e97b6ab&state=T6F9OVKRgbbMeSk4 HTTP/1.1" 400 61
-WARNING 2024-12-09 19:56:36,984 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 19:56:36,984 basehttp "GET /login/handleCallback?code=06896b23505f75de16185c1890a208939f09ca2f9b366b5e98098681247702f3&state=8AanjkEXIYjpYmFM HTTP/1.1" 400 61
-WARNING 2024-12-09 19:58:05,947 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 19:58:05,947 basehttp "GET /login/handleCallback?code=ba013737b0a426357b75e00437508120ae40cc0b11b4896ebf7f96da8010f9a3&state=1Fn9MWFUKr32bPxh HTTP/1.1" 400 61
-WARNING 2024-12-09 19:59:50,776 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 19:59:50,776 basehttp "GET /login/handleCallback?code=fa7bfcd83387d9daae25951614b8691cdea10b99072c0ca7a6d3e5f579947266&state=1ZXff1RROm3XSZeV HTTP/1.1" 400 61
-WARNING 2024-12-09 20:01:08,660 log Not Found: /api/user-forms/undefined/
-WARNING 2024-12-09 20:01:08,661 basehttp "GET /api/user-forms/undefined/ HTTP/1.1" 404 4275
-WARNING 2024-12-09 20:01:08,685 log Not Found: /undefined
-WARNING 2024-12-09 20:01:08,686 basehttp "GET /undefined HTTP/1.1" 404 4227
-WARNING 2024-12-09 20:01:08,711 basehttp "GET /static/static/bootstrap.min.css.map HTTP/1.1" 404 1836
-WARNING 2024-12-09 20:01:24,742 log Not Found: /api/user-forms/undefined/
-WARNING 2024-12-09 20:01:24,743 basehttp "GET /api/user-forms/undefined/ HTTP/1.1" 404 4275
-WARNING 2024-12-09 20:01:24,748 log Not Found: /undefined
-WARNING 2024-12-09 20:01:24,749 basehttp "GET /undefined HTTP/1.1" 404 4227
-WARNING 2024-12-09 20:01:24,784 basehttp "GET /static/static/bootstrap.min.css.map HTTP/1.1" 404 1836
-WARNING 2024-12-09 20:01:25,900 log Not Found: /api/user-forms/undefined/
-WARNING 2024-12-09 20:01:25,902 basehttp "GET /api/user-forms/undefined/ HTTP/1.1" 404 4275
-WARNING 2024-12-09 20:01:25,902 log Not Found: /undefined
-WARNING 2024-12-09 20:01:25,903 basehttp "GET /undefined HTTP/1.1" 404 4227
-WARNING 2024-12-09 20:01:25,954 basehttp "GET /static/static/bootstrap.min.css.map HTTP/1.1" 404 1836
-WARNING 2024-12-09 20:02:07,491 basehttp "GET /static/static/bootstrap.min.css.map HTTP/1.1" 404 1836
-WARNING 2024-12-09 20:02:11,392 log Not Found: /undefined
-WARNING 2024-12-09 20:02:11,394 log Not Found: /api/user-forms/undefined/
-WARNING 2024-12-09 20:02:11,396 basehttp "GET /api/user-forms/undefined/ HTTP/1.1" 404 4275
-WARNING 2024-12-09 20:02:11,396 basehttp "GET /undefined HTTP/1.1" 404 4227
-WARNING 2024-12-09 20:02:11,441 basehttp "GET /static/static/bootstrap.min.css.map HTTP/1.1" 404 1836
-WARNING 2024-12-09 20:04:12,599 basehttp "GET /static/static/bootstrap.min.css.map HTTP/1.1" 404 1836
-WARNING 2024-12-09 20:04:16,732 log Not Found: /api/user-forms/undefined/
-WARNING 2024-12-09 20:04:16,733 basehttp "GET /api/user-forms/undefined/ HTTP/1.1" 404 4275
-WARNING 2024-12-09 20:04:16,741 log Not Found: /undefined
-WARNING 2024-12-09 20:04:16,741 basehttp "GET /undefined HTTP/1.1" 404 4227
-WARNING 2024-12-09 20:04:16,775 basehttp "GET /static/static/bootstrap.min.css.map HTTP/1.1" 404 1836
-WARNING 2024-12-09 20:06:41,304 basehttp "GET /static/static/bootstrap.min.css.map HTTP/1.1" 404 1836
-WARNING 2024-12-09 20:06:45,528 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 20:06:45,528 basehttp "GET /login/handleCallback?code=30d06e27be86d3c6ce80ab203c68076a946e7f4da26b7f3b652c065f88be3ac4&state=zQhqxzkB9FPdWNDU HTTP/1.1" 400 48
-WARNING 2024-12-09 20:07:15,197 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 20:07:15,198 basehttp "GET /login/handleCallback?code=82960c322ae4ed16fc5ad96f2044885cbef6bdc1d3fba82cbcbb5ca3dae524c8&state=zKCWwY1NmQjX4xTR HTTP/1.1" 400 48
-WARNING 2024-12-09 20:08:23,761 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 20:08:23,761 basehttp "GET /login/handleCallback?code=053c285e4648d856327b4e917f31fe90ee93d0f99674fd5f059ba4169d4e5422&state=k91zKuAeRBLwzoBm HTTP/1.1" 400 48
-WARNING 2024-12-09 20:09:07,416 log Bad Request: /login/handleCallback
-WARNING 2024-12-09 20:09:07,417 basehttp "GET /login/handleCallback?code=b59b9b7636614ea457ec47329c3426bea870aba29191cd62136d135f45cec07e&state=wcWiz3BFhmm8mXk0 HTTP/1.1" 400 48
-WARNING 2024-12-09 20:21:02,542 log Not Found: /undefined
-WARNING 2024-12-09 20:21:02,542 basehttp "GET /undefined HTTP/1.1" 404 4227
-WARNING 2024-12-09 20:21:02,544 log Not Found: /api/user-forms/undefined/
-WARNING 2024-12-09 20:21:02,544 basehttp "GET /api/user-forms/undefined/ HTTP/1.1" 404 4275
-WARNING 2024-12-09 20:21:09,986 basehttp "GET /static/static/bootstrap.min.css.map HTTP/1.1" 404 1836
-WARNING 2024-12-09 20:21:19,239 log Not Found: /api/user-forms/undefined/
-WARNING 2024-12-09 20:21:19,240 basehttp "GET /api/user-forms/undefined/ HTTP/1.1" 404 4275
-WARNING 2024-12-09 20:21:32,479 log Not Found: /undefined
-WARNING 2024-12-09 20:21:32,479 basehttp "GET /undefined HTTP/1.1" 404 4227
-WARNING 2024-12-09 20:21:32,483 log Not Found: /api/user-forms/undefined/
-WARNING 2024-12-09 20:21:32,484 basehttp "GET /api/user-forms/undefined/ HTTP/1.1" 404 4275
-WARNING 2024-12-09 20:22:03,270 log Not Found: /api/user-forms/undefined/
-WARNING 2024-12-09 20:22:03,275 basehttp "GET /api/user-forms/undefined/ HTTP/1.1" 404 4275
-WARNING 2024-12-09 20:22:03,289 log Not Found: /undefined
-WARNING 2024-12-09 20:22:03,290 basehttp "GET /undefined HTTP/1.1" 404 4227
-WARNING 2024-12-09 20:22:03,341 basehttp "GET /static/static/bootstrap.min.css.map HTTP/1.1" 404 1836
-WARNING 2024-12-09 20:24:38,152 basehttp "GET /static/static/bootstrap.min.css.map HTTP/1.1" 404 1836
-WARNING 2024-12-09 20:24:42,027 log Not Found: /api/user-forms/undefined/
-WARNING 2024-12-09 20:24:42,032 basehttp "GET /api/user-forms/undefined/ HTTP/1.1" 404 4275
-WARNING 2024-12-09 20:24:42,085 basehttp "GET /static/static/bootstrap.min.css.map HTTP/1.1" 404 1836
+WARNING 2024-12-10 20:30:55,609 log Not Found: /favicon.ico
+WARNING 2024-12-10 20:30:55,609 basehttp "GET /favicon.ico HTTP/1.1" 404 4233
+WARNING 2024-12-10 20:44:07,588 log Not Found: /api/user-forms/undefined/
+WARNING 2024-12-10 20:44:07,589 basehttp "GET /api/user-forms/undefined/ HTTP/1.1" 404 4275
+WARNING 2024-12-10 20:44:07,610 log Not Found: /undefined
+WARNING 2024-12-10 20:44:07,610 basehttp "GET /undefined HTTP/1.1" 404 4227
+ERROR 2024-12-10 20:44:39,577 log Internal Server Error: /admin/core/campus/add/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 716, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 240, in inner
+    return view(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 1945, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 1804, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 1843, in _changeform_view
+    form = ModelForm(request.POST, request.FILES, instance=obj)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/core/admin.py", line 156, in __init__
+    api_form = ExternalAPIForm(*args, api_url="https://api.intra.42.fr/v2/campus", **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/core/admin.py", line 88, in __init__
+    super().__init__(*args, **kwargs)
+TypeError: BaseForm.__init__() got an unexpected keyword argument 'instance'
+ERROR 2024-12-10 20:44:39,579 basehttp "POST /admin/core/campus/add/ HTTP/1.1" 500 123801
+ERROR 2024-12-10 20:46:19,486 log Internal Server Error: /admin/core/campus/add/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 716, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 240, in inner
+    return view(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 1945, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 1804, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 1871, in _changeform_view
+    form = ModelForm(initial=initial)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/core/admin.py", line 156, in __init__
+    api_form = ExternalAPIForm(*args, api_url="https://api.intra.42.fr/v2/campus", **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/core/admin.py", line 89, in __init__
+    self.fields['choices'].choices = self.fetch_data()
+    ^^^^^^^^^^^
+AttributeError: 'ExternalAPIForm' object has no attribute 'fields'
+ERROR 2024-12-10 20:46:19,489 basehttp "GET /admin/core/campus/add/ HTTP/1.1" 500 122204
+ERROR 2024-12-10 20:46:23,219 log Internal Server Error: /admin/core/campus/add/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 716, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 240, in inner
+    return view(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 1945, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 1804, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 1871, in _changeform_view
+    form = ModelForm(initial=initial)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/core/admin.py", line 156, in __init__
+    api_form = ExternalAPIForm(*args, api_url="https://api.intra.42.fr/v2/campus", **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/core/admin.py", line 89, in __init__
+    self.fields['choices'].choices = self.fetch_data()
+    ^^^^^^^^^^^
+AttributeError: 'ExternalAPIForm' object has no attribute 'fields'
+ERROR 2024-12-10 20:46:23,221 basehttp "GET /admin/core/campus/add/ HTTP/1.1" 500 122335
+ERROR 2024-12-10 20:46:41,112 log Internal Server Error: /admin/core/campus/add/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 716, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 240, in inner
+    return view(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 1945, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 1804, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 1843, in _changeform_view
+    form = ModelForm(request.POST, request.FILES, instance=obj)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/core/admin.py", line 156, in __init__
+    api_form = ExternalAPIForm(*args, api_url="https://api.intra.42.fr/v2/campus", **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/core/admin.py", line 88, in __init__
+    super().__init__(*args, **kwargs)
+TypeError: BaseForm.__init__() got an unexpected keyword argument 'instance'
+ERROR 2024-12-10 20:46:41,115 basehttp "POST /admin/core/campus/add/ HTTP/1.1" 500 123801
+ERROR 2024-12-10 20:50:50,573 log Internal Server Error: /admin/core/campus/add/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 716, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 240, in inner
+    return view(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 1945, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 1804, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 1851, in _changeform_view
+    new_object = self.save_form(request, form, change=not add)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/django/contrib/admin/options.py", line 1253, in save_form
+    return form.save(commit=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/core/admin.py", line 167, in save
+    id_42, name = self.cleaned_data['external_choice'].split('|')
+    ^^^^^^^^^^^
+ValueError: not enough values to unpack (expected 2, got 1)
+ERROR 2024-12-10 20:50:50,575 basehttp "POST /admin/core/campus/add/ HTTP/1.1" 500 123835
+WARNING 2024-12-10 21:12:39,159 log Not Found: /api/user-forms/undefined/
+WARNING 2024-12-10 21:12:39,160 basehttp "GET /api/user-forms/undefined/ HTTP/1.1" 404 4275
