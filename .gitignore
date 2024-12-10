@@ -12,4 +12,4 @@ src/app/*/*/*/__pycache__/
 src/.env
 .venv/
 venv/
-src/data/
+src/data/log
