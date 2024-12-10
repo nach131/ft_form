@@ -89,7 +89,8 @@ class Callback42API(APIView):
             # logger.info(datetime.now().timestamp())
             formatResponse = data_res_front | {
                 'refresh_token': str(refresh_token),
-                'access': str(refresh_token.access_token)
+                'access': str(refresh_token.access_token),
+                'id': user.id
             #    'refresh_exp': str(refresh_token["exp"] - datetime.now().timestamp()),
             #    'token_exp': str(refresh_token.access_token["exp"] - datetime.now().timestamp()),
                 #'username': user.username,

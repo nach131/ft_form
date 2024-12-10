@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+	
+</head>
+<body>
+    <style>
+        body{
+            background-color:  black;
+        }
+    </style>
+
+    <!-- <text-tag minlength="10" maxlength="100" question="que te gusta de 42?" numQuestion="1" ></text-tag> -->
+    <!-- <binary-tag></binary-tag>     -->
+	<script type="module" src="{% static 'webComponents/binaryInput.js'%}"></script>
+	<script type="module" src="{% static 'webComponents/textFormcomponent.js'%}"></script>
+	<script type="module" src="{% static 'webComponents/handleQuestionaire.js'%}"></script>
+</body>
+</html>
