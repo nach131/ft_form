@@ -60,7 +60,7 @@ control:
 
 mi:
 	@echo "Running Migrations..."
-	@chmod -R 777  app/core/migrations/
+# @chmod -R 777  app/core/migrations/
 	@$(DOCKER_COMPOSE) $(DC_RUN_APP) "python manage.py makemigrations"
 	@$(DOCKER_COMPOSE) $(DC_RUN_APP) "python manage.py migrate"
 	
