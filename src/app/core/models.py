@@ -60,7 +60,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=100, unique=True)
     intra_id = models.PositiveIntegerField(default=0)
 #    gender = 
-#    name = models.CharField(max_length=100, blank=True, null=True)
+    name = models.CharField(max_length=100, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_cancel = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -234,3 +234,17 @@ class SingleChoiceAnswer(models.Model):
 
 #     def __str__(self):
 #         return f"Answer from {self.user} to '{self.question}'"
+
+class Campus(models.Model):
+    id_42 = models.IntegerField(unique=True)
+    name = models.CharField(max_length=255, db_index=True)
+
+    def __str__(self):
+        return self.name
+
+class Cursus(models.Model):
+    id_42 = models.IntegerField(unique=True)
+    name = models.CharField(max_length=255, db_index=True)
+
+    def __str__(self):
+        return self.name

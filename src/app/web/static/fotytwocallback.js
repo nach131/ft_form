@@ -19,7 +19,7 @@ if (code && state){
 
             localStorage.setItem('user_img', data.user_img);
             localStorage.setItem('is_staff', data.is_staff);
-            localStorage.setItem('coalition', data.coalition);
+            localStorage.setItem('coalition', data.coalition);22
             localStorage.setItem('color', data.color);
             localStorage.setItem('coalition_img', data.coalition_img);
             localStorage.setItem('title', data.title);

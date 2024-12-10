@@ -6,9 +6,14 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import User
 from django.utils.translation import gettext_lazy as _
+from django import forms
+import requests
+from django.conf import settings
+from oauthlib.oauth2 import BackendApplicationClient
+from requests_oauthlib import OAuth2Session
 
 from core import models
-from .models import Form, TextQuestion, BooleanQuestion, OptionQuestion, SentForm
+from .models import Form, TextQuestion, BooleanQuestion, OptionQuestion, SentForm, Campus, Cursus
 
 class TextQuestionInLine(admin.TabularInline):
     model = TextQuestion
@@ -73,3 +78,133 @@ class UserAdmin(BaseUserAdmin):
             ),
         }),
     )
+
+class ExternalAPIForm(forms.Form):
+    TOKEN_URL = "https://api.intra.42.fr/oauth/token"
+    EXTERNAL_API_URL = None
+
+    def __init__(self, *args, **kwargs):
+        self.EXTERNAL_API_URL = kwargs.pop("api_url", "")
+        super().__init__(*args, **kwargs)
+        self.fields['choices'].choices = self.fetch_data()
+
+    def authenticate(self):
+        """
+        Authenticates using OAuth2 with the Client Credentials grant type.
+        Returns an authenticated session.
+        """
+        # Set up the OAuth2 client and session
+        client = BackendApplicationClient(client_id=settings.UID)
+        oauth = OAuth2Session(client=client)
+
+        # Fetch token from the token endpoint
+        token = oauth.fetch_token(
+            token_url=self.TOKEN_URL,
+            client_secret=settings.SECRET
+        )
+        return oauth
+
+    def fetch_data(self):
+        """
+        Fetch paginated data using an authenticated session and handle pagination.
+        """
+        try:
+            session = self.authenticate()
+            all_choices = []
+            page_number = 1
+            page_size = 100  # You can modify this based on your requirements
+
+            #while True:
+            response = session.get(
+                self.EXTERNAL_API_URL,
+                params={"page[number]": page_number, "page[size]": page_size}
+            )
+            response.raise_for_status()
+            data = response.json()
+            # Handle list response directly if it's a list
+            if isinstance(data, list):
+                for item in data:
+                    if 'id' in item and 'name' in item:
+                        all_choices.append((f"{item['id']}|{item['name']}", item['name']))
+
+            # Handle paginated response with 'data' key
+            elif 'data' in data and isinstance(data['data'], list):
+                for item in data['data']:
+                    if 'id' in item and 'name' in item:
+                        all_choices.append((f"{item['id']}|{item['name']}", item['name']))
+
+            # Break loop if no new data is found
+            #if not data or len(data) < page_size:
+            #    break
+            print(data)
+            page_number += 1
+
+            return all_choices
+        except Exception as e:
+            print(f"Error fetching paginated data: {e}")
+            return []
+
+    choices = forms.ChoiceField(choices=[], label="Select Options")
+
+# Step 3: Admin customization for Campus and Cursus
+class CampusAdminForm(forms.ModelForm):
+
+    external_choice = forms.ChoiceField(choices=[], label="Select Campus")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        api_form = ExternalAPIForm(api_url="https://api.intra.42.fr/v2/campus")
+        self.fields['external_choice'].choices = api_form.fetch_data()
+
+    class Meta:
+        model = Campus
+        fields = ['external_choice']
+
+    # Handling data transformation during save
+    def save(self, commit=True):
+        obj = super().save(commit=False)
+        if 'external_choice' in self.cleaned_data:
+            id_42, name = self.cleaned_data['external_choice'].split('|')
+            obj.id_42 = int(id_42)
+            obj.name = name
+        if commit:
+            obj.save()
+        return obj
+
+
+class CursusAdminForm(forms.ModelForm):
+
+    external_choice = forms.ChoiceField(choices=[], label="Select Cursus")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        api_form = ExternalAPIForm(api_url="https://api.intra.42.fr/v2/cursus")
+        self.fields['external_choice'].choices = api_form.fetch_data()
+
+    class Meta:
+        model = Cursus
+        fields = ['external_choice']
+
+    # Handling data transformation during save
+    def save(self, commit=True):
+        obj = super().save(commit=False)
+        if 'external_choice' in self.cleaned_data:
+            id_42, name = self.cleaned_data['external_choice'].split('|')
+            obj.id_42 = int(id_42)
+            obj.name = name
+        if commit:
+            obj.save()
+        return obj
+
+
+# Admin Registration
+class CampusAdmin(admin.ModelAdmin):
+    form = CampusAdminForm
+
+
+class CursusAdmin(admin.ModelAdmin):
+    form = CursusAdminForm
+
+
+admin.site.register(Campus, CampusAdmin)
+admin.site.register(Cursus, CursusAdmin)
