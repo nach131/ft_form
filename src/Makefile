@@ -35,8 +35,6 @@ build: create-dirs pull-images
 	@echo "Building Docker images..."
 	@$(DOCKER_COMPOSE) build
 	@$(DOCKER_COMPOSE) $(DC_RUN_APP) "python manage.py wait_for_db"
-	@rm -rf app/core/migrations/__pycache__/*
-	@rm app/core/migrations/0001_initial.py
 
 up:
 	@echo "Running setup tasks..."

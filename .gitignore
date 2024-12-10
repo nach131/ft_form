@@ -5,11 +5,15 @@
 .docker
 
 # Python
-src/app/__pycache__/
+*.pyc
+**/__pycache__/
+/src/app/__pycache__/
 src/app/*/__pycache__/
+src/app/web/__pycache__
 src/app/*/*/__pycache__/
 src/app/*/*/*/__pycache__/
 src/.env
 .venv/
 venv/
 src/data/log
+.env
