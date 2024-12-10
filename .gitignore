@@ -9,7 +9,7 @@ src/app/__pycache__/*
 src/app/*/__pycache__/*
 src/app/*/*/__pycache__/*
 src/app/*/*/*/__pycache__/*
-src/.env
+./src/.env
 .venv/
 venv/
 src/data/*
