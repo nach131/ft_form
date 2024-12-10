@@ -1,23 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
 </head>
 <body>
-    <style>
-        body{
-            background-color:  black;
-        }
-    </style>
-
-    <text-tag minlength="10" maxlength="100" question="que te gusta de 42?" numQuestion="1" ></text-tag>
-    <!-- <binary-tag></binary-tag>     -->
-<script type="module" src="binaryInput.js"></script>
-<script type="module" src="textFormcomponent.js"></script>
+	<style>
+		body{
+			height: 100vh;
+			width: 100vw;
+			background-color: black;
+		}
+	</style>
+	<options-tag numquestion="3" question="que colores te gustan mas?" options='{"choices": ["Red", "Blue", "Green", "Yellow"]}' ></options-tag>
+	<script src="multyoptionsComponents.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 
 const urlparams = new URLSearchParams(window.location.search);
 let formId = urlparams.get('formId');
+let userId = urlparams.get('userId');
 
 if (formId){
     
@@ -18,16 +19,16 @@ if (formId){
 
 
 function renderQuestionaire(data){
-   let content =  document.getElementsByTagName('body');
+   let content =  document.getElementsByTagName('body')[0];
    let estile = document.createElement('style');
    estile.textContent = `
         body{
             color: #000;
         }
-        .question-container {
+        .inactive {
             display: none;
         }
-        .question-container.active {
+        .active {
             display: block;
         }
    `;
@@ -35,68 +36,99 @@ function renderQuestionaire(data){
 
     let container = document.createElement('div');
     container.id = 'questionaire-container';
-    body.appendChild(container);
+    content.appendChild(container);
 
     let questionElements = [];
 
-    data.forEach((question,index ) => {
-        let questionElement;
-        let fieldType = question.type;
+	function createQuestionElement(question, type) {
+		let questionElement;
+		if (type === 'text') {
+		  questionElement = document.createElement('text-tag');
+		  questionElement.setAttribute('minlength', question.min_chars);
+		  questionElement.setAttribute('maxlength', question.max_chars);
+		} else if (type === 'boolean') {
+		  questionElement = document.createElement('binary-tag');
+		} else if (type === 'option') {
+		  questionElement = document.createElement('multiple-option-tag');
+		}
+		questionElement.setAttribute('question', question.text);
+		questionElement.setAttribute('numQuestion', question.order);
+		return questionElement;
+	  }
+	  data.text_questions.forEach((question) => {
+		let questionElement = createQuestionElement(question, 'text');
+		let questionContainer = document.createElement('div');
+		questionContainer.appendChild(questionElement);
+		questionElements.push({ element: questionContainer, order: question.order });
+	  });
+	  
+	  data.boolean_questions.forEach((question) => {
+		let questionElement = createQuestionElement(question, 'boolean');
+		let questionContainer = document.createElement('div');
+		questionContainer.appendChild(questionElement);
+		questionElements.push({ element: questionContainer, order: question.order });
+	  });
+	  
+	  data.option_questions.forEach((question) => {
+		let questionElement = createQuestionElement(question, 'option');
+		let questionContainer = document.createElement('div');
+		questionContainer.appendChild(questionElement);
+		questionElements.push({ element: questionContainer, order: question.order });
+	  });
 
-        if (fieldType === 'Text question'){
-            questionElement = document.createElement('text-tag');
-            questionElement.setAttribute('minlength', question.min_chars);
-            questionElement.setAttribute('maxlength', question.max_chars);
-            questionElement.setAttribute('question', question.text);
-            questionElement.setAttribute('numQuestion', question.order);
-        }else if (fieldType === 'Boolean question'){
-            questionElement = document.createElement('binary-tag');
-            questionElement.setAttribute('question', question.text);
-            questionElement.setAttribute('numQuestion', question.order);
-        }else if (fieldType === 'Option question'){
-            questionElement = document.createElement('multiple-option-tag');
-            questionElement.setAttribute('question', question.text);
-            questionElement.setAttribute('numQuestion', question.order);
-            questionElement.setAttribute('options', question.options);
-        }else{
-            console.log('Invalid or yet not suported question type');
-        }
-        if (questionElement){
-            let questionContainer = document.createElement('div');
-            questionContainer.className = 'question-container';
-            if (index === 0) {
-                questionContainer.classList.add('active');
-            }
-            questionContainer.appendChild(questionElement);
-            container.appendChild(questionContainer);
-            questionElements.push(questionContainer);
+	  questionElements.sort((a, b) => a.order - b.order);
 
-            let nextButton = questionElement.querySelector('#next-btn');
-            let prevButton = questionElement.querySelector('#prev-btn');
+	  questionElements.forEach((item, index) => {
+		if(index === 0){
+			item.element.classList.add('active');
+		}
+		else{
+			item.element.classList.add('inactive');
+		}
+		container.appendChild(item.element);
+		
+		let customElement = item.element.firstElementChild;
+		let shadow = customElement.shadowRoot;
 
-            if (nextButton) {
-                nextButton.addEventListener('click', () => {
-                    if (index < questionElements.length - 1) {
-                        showQuestion(index + 1);
-                    }
-                });
-            }
+		let nextButton = shadow.querySelector('#next-btn');
+		let prevButton = shadow.querySelector('#prev-btn');
 
-            if (prevButton) {
-                prevButton.addEventListener('click', () => {
-                    if (index > 0) {
-                        showQuestion(index - 1);
-                    }
-                });
-            }
-        }
-    });
+
+		if (nextButton) {
+		  nextButton.addEventListener('click', (event) => {
+			event.preventDefault();
+			if (index < questionElements.length - 1) {
+			  showQuestion(index + 1);
+			}
+		  });
+		}
+	  
+		if (prevButton) {
+		  prevButton.addEventListener('click', (event) => {
+			event.preventDefault();
+			if (index > 0) {
+			  showQuestion(index - 1);
+			}
+		  });
+		}
+});
+	 
     let currentIndex = 0;
+	
 
     function showQuestion(index) {
-        questionElements[currentIndex].classList.remove('active');
-        questionElements[index].classList.add('active');
-        currentIndex = index;
-    }
-
+		if (questionElements[currentIndex]) {
+			console.log(questionElements[currentIndex]);
+			questionElements[currentIndex].element.classList.remove('active');
+			questionElements[currentIndex].element.classList.add('inactive');
+		  }
+		  if (questionElements[index]) {
+			console.log(questionElements[index]);
+			questionElements[index].element.classList.remove('inactive');
+			questionElements[index].element.classList.add('active');
+			currentIndex = index;
+		  } else {
+			console.error('Invalid index:', index);
+		  }
+		}
 }

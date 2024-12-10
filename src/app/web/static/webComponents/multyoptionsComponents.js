@@ -1,20 +1,20 @@
-class TextComponent extends HTMLElement{
+class MultyOptions extends HTMLElement{
     constructor(){
         super();
         let shadow = this.attachShadow({mode: 'open'});
         let estilo = document.createElement('style');
         estilo.textContent = /*css*/`
-        :host{
+			:host{
             color: #fff;
             width: 100vw;
             height: 100vh;
             font-family: 'Source Sans 3';
             display: block;
         }
-        .form-card{
+		.form-card{
             border: 1px solid black;
-                height: 40vh;
-                width: 55vw;
+                height: 55vh;
+                width: 60vw;
                 background: transparent;
                 color: #fff;
                 text-align: center;
@@ -35,7 +35,7 @@ class TextComponent extends HTMLElement{
                 justify-content: center;
                 font-size: 1.5rem;
         }
-        #next-btn{
+		#next-btn{
             background-color: #FC0;
             border: 0px solid #000;
             color: #fff;
@@ -48,7 +48,7 @@ class TextComponent extends HTMLElement{
             grid-column-start: 3;
             grid-column-end: 4;
             justify-self: flex-start;
-            align-self: flex-start;
+            align-self: center;
             border-radius: 15px;
             width: 64px;
 			height: 25px;
@@ -66,12 +66,20 @@ class TextComponent extends HTMLElement{
             grid-column-start: 2;
             grid-column-end: 3;
             justify-self: center;
-            align-self: flex-start;
+            align-self: center;
             border-radius: 15px;
             width: 64px;
 			height: 25px;
         }
-        .question-title{
+		.option-label{
+			display: flex;
+    		align-items: center;
+		}
+		.option-label input {
+    		order: 1;
+    		margin-left: 8px;
+		}
+		.question-title{
                 display: flex;
 				font-family: 'Source Sans 3';
                 justify-content:flex-start;
@@ -82,7 +90,7 @@ class TextComponent extends HTMLElement{
                 grid-row-end: 2;
                 justify-self: stretch;
         }
-        .input-container{
+		.input-container{
                 grid-row-start: 2;
                 grid-row-end: 5;
                 grid-column-start: 2;
@@ -91,42 +99,57 @@ class TextComponent extends HTMLElement{
                 grid-template-rows: 1fr 1fr 1fr;
                 grid-template-columns: 1fr 1fr 1fr;
                 align-items: center;
-            }
-            svg{
+        }
+		.options-container{
+			display: flex;
+			flex-direction: column;
+			grid-row-start: 1;
+			grid-row-end: 3;
+			justify-content: space-evenly;
+			grid-column-start: span 3;
+			align-self: stretch;
+		}
+		.pair-container{
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			align-self: flex-start;
+		}
+		svg{
                 margin: 5px;
             }
-            p{
-                font-size: 1.5em;
-            }
-            input[type="text"] {
-                height: 8.2em;
-                width: 35em;
-                border-radius: 15px;
-                box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.25) inset;
-                border: 1px solid #000;
-                grid-column-start: span 3;
-            }
-            input[type="text"]::placeholder{
-                color: rgba(0, 0, 0, 0.5);
-                font-size: 1em;
-                font-weight: 400;
-                text-align: justify;
-            }
-			h1{
+        p{
+            font-size: 1.5em;
+        }
+		h1{
 				font-weight: 400;
 				font-size: 2.5em;
 			}
-        `;
+		input[type="checkbox"]{
+			width: 20px; 
+			height: 20px; 
+			appearance: none;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			background-color: #000; 
+			border: 1px solid #fff; 
+			cursor: pointer; 
+		}
+		input[type="checkbox"]:checked {
+   			background-color: #00B8F0; 
+    		border: 2px solid #fff; 
+		}
+		`;
         shadow.appendChild(estilo);
         let content = document.createElement('div');
 		content.id = 'question';
         shadow.appendChild(content);
-		
-    }
-    render(){
+	}
+	render(){
 		let element = this.shadowRoot.getElementById('question');
-		element.innerHTML = /*html*/`
-            <div class="form-card">
+        element.innerHTML = /*html*/`
+			<div class="form-card">
                 <div class="num-question">
                     <p>${this.numQuestion}</p>
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="#fff">
@@ -144,34 +167,48 @@ class TextComponent extends HTMLElement{
                     <h1 id="binary-question" for="binary">${this.question}</h1>
                 </div>
                 <form action="" class="input-container">
-                    <input type="text" placeholder="Responde aqui" minlength="${this.getAttribute('minlength')}" maxlength="${this.getAttribute('maxlength')}"></input>
-                    <button type="" id="next-btn">Next</button>
+					<button type="" id="next-btn">Next</button>
                 </form>
             </div>
         `;
 	}
-
     connectedCallback(){
-		this.question = this.getAttribute('question');
+        this.question = this.getAttribute('question');
         this.numQuestion = this.getAttribute('numQuestion');
+		let options = JSON.parse(this.getAttribute('options'));
 		this.render();
-        if (this.numQuestion != '1'){
+		let inputContainer = this.shadowRoot.querySelector('.input-container');
+		let optionsContainer = document.createElement('div');
+		optionsContainer.classList.add('options-container');
+		inputContainer.appendChild(optionsContainer);
+		
+		options.choices.forEach(option => {
+			let inputContainer = this.shadowRoot.querySelector('.options-container');
+			let pairContainer = document.createElement('div');
+			pairContainer.classList.add('pair-container');
+			let input = document.createElement('input');
+			input.type = 'checkbox';
+			input.name = 'options';
+            input.value = option;
+			
+			
+			let label = document.createElement('label');
+			label.className = 'option-label';
+			label.textContent = option;
+			pairContainer.appendChild(input);
+			pairContainer.appendChild(label);
+
+			inputContainer.appendChild(pairContainer);
+		});
+		if (this.numQuestion != '1'){
             let inputContainer = this.shadowRoot.querySelector('.input-container');
             let prevBtn =  document.createElement('button');
             prevBtn.id = 'prev-btn';
             prevBtn.textContent = 'Previous';
             inputContainer.appendChild(prevBtn);
-			
         }
     }
-    
     disconnectedCallback(){
-        let prevBtn = this.shadowRoot.querySelector('#prev-btn');
-        if (prevBtn) {
-            prevBtn.removeEventListener('click', this.prevBtnClickHandler);
-        }
     }
 }
-
-
-window.customElements.define('text-tag', TextComponent);
+window.customElements.define('options-tag', MultyOptions);

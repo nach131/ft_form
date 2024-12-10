@@ -32,3 +32,6 @@ def StudentHome(request):
 
 def StaffHome(request):
     return render(request, 'staffhome.html')
+
+def answer_form(request):
+	return render(request,'questionaire.html')

@@ -3,7 +3,6 @@ class binaryInputComponent extends HTMLElement{
         super();
         let shadow = this.attachShadow({mode: 'open'});
         let estilo = document.createElement('style');
-        /* insertar el estilo(css) que queramos darle al componente dentro del text content de la variable estilo*/
         estilo.textContent = /*css*/`
             :host{
                 width: 100vw;
@@ -36,18 +35,22 @@ class binaryInputComponent extends HTMLElement{
                 font-size: 1.5rem;
             }
             #next-btn{
+				
                 background-color: #FC0;
                 border: 0px solid #000;
+				color:#fff;
                 font-size: 1rem;
-                font-weight: 700;
+                font-weight: 500;
                 font-family: 'Source Sans 3';
                 text-align: center;
+				justify-self: flex-start;
                 grid-row-start: 3;
                 grid-row-end: 4;
                 grid-column-start: 2;
                 grid-column-end: 3;
                 border-radius: 15px;
-                max-width: 110px;
+                width: 64px;
+				height: 25px;
             }
             #prev-btn{
                 background-color: #00B8F0;
@@ -59,12 +62,13 @@ class binaryInputComponent extends HTMLElement{
                 text-align: center;
                 grid-row-start: 3;
                 grid-row-end: 4;
-                grid-column-start: 2;
-                grid-column-end: 3;
+                grid-column-start: 1;
+                grid-column-end: 2;
                 justify-self: center;
-                align-self: flex-start;
+                align-self: center;
                 border-radius: 15px;
-                max-width: 110px;
+                width: 64px;
+				height: 25px;
             }
             #binary-positive{
                 grid-row-start: 1;
@@ -107,6 +111,7 @@ class binaryInputComponent extends HTMLElement{
             }
             .question-title{
                 display: flex;
+				font-family: 'Source Sans 3';
                 justify-content:flex-start;
                 align-items: center;
                 grid-column-start: 2;
@@ -140,9 +145,6 @@ class binaryInputComponent extends HTMLElement{
         let content = document.createElement('div');
         content.id = 'question';
         shadow.appendChild(content);
-        this.question = this.getAttribute('question') || '¿Es usted mayor de edad?';
-        this.numQuestion = this.getAttribute('numQuestion') || 1;
-        this.render();
     }
     render(){
         let element = this.shadowRoot.getElementById('question');
@@ -169,29 +171,24 @@ class binaryInputComponent extends HTMLElement{
                 <label for="binary-positive" id="positive-label">Yes</label>
                 <input type="radio" name="binary" id="binary-negative" value="no"></input>
                 <label for="binary-negative" id="negative-label">No</label>
-                <button type="submit" id="next-btn">Next</button>
+                <button type="" id="next-btn">Next</button>
             </form>
         </div>
         `;
     }
     connectedCallback(){
-        if (this.numQuestion != 1){
+		this.question = this.getAttribute('question');
+        this.numQuestion = this.getAttribute('numQuestion');
+		this.render();
+		if (this.numQuestion != '1'){
             let inputContainer = this.shadowRoot.querySelector('.input-container');
             let prevBtn =  document.createElement('button');
             prevBtn.id = 'prev-btn';
             prevBtn.textContent = 'Previous';
             inputContainer.appendChild(prevBtn);
-            prevBtn.addEventListener('click', this.prevBtnClickHandler);
         }
     }
-    disconnectedCallback(){
-        let prevBtn = this.shadowRoot.querySelector('#prev-btn');
-        if (prevBtn) {
-            prevBtn.removeEventListener('click', this.prevBtnClickHandler);
-        }
-    }
-    prevBtnClickHandler(){
-        history.back();
+    disconnectedCallback(){  
     }
 }
 
