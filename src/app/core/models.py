@@ -118,7 +118,7 @@ class Form(models.Model):
 
 class TextQuestion(models.Model):
     order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
-    type = 'Text question'
+    type = 'text'
     max_chars = models.IntegerField(verbose_name='Maximo número de caracteres', default=1000)
     min_chars = models.IntegerField(verbose_name='Mínimo número de caracteres', default=1)
     text = models.CharField(max_length=300, verbose_name='Pregunta', blank=False, null=False)
@@ -127,13 +127,17 @@ class TextQuestion(models.Model):
 
     class Meta:
         db_table = 'Text question'
+        constraints = [
+            models.UniqueConstraint(fields=['order', 'form_id_id'], name='unique_order_tq_per_form')
+        ] 
+        #garantiza que no se repitan numeros de pregunta dentro del form lo que evita que se repitan preguntas en el mismo formulario
 
     def __str__(self):
-        return self.text
+        return f"Pregunta {self.order}: {self.text}"
 
 class BooleanQuestion(models.Model):
     order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
-    type = 'Boolean question'
+    type = 'boolean'
     text = models.CharField(max_length=250, verbose_name='Pregunta', blank=False, null=False)
     is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
     form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
@@ -142,21 +146,120 @@ class BooleanQuestion(models.Model):
         db_table = 'Boolean question'
 
     def __str__(self):
-        return self.text
+        return f"Pregunta {self.order}: {self.text}"
 
 class OptionQuestion(models.Model):
     order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
-    type = 'Option question'
+    type = 'option'
+    text = models.CharField(max_length=250, verbose_name='Pregunta', blank=False, null=False)
+    options = models.JSONField(default=dict)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+
+
+    class Meta:
+        db_table = 'Option question'
+
+    def __str__(self):
+        return f"Pregunta {self.order}: {self.text}"
+    
+class MultipleChoiceQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'multiple_choice'
     text = models.CharField(max_length=250, verbose_name='Pregunta', blank=False, null=False)
     options = models.JSONField(default=dict)
     is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
     form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'Option question'
+        db_table = 'Multiple Choice question'
 
     def __str__(self):
-        return self.text
+        return f"Pregunta {self.order}: {self.text}"
+    
+class NumberQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'number'
+    text = models.CharField(max_length=250, verbose_name='Pregunta', blank=False, null=False)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'Number question'
+
+    def __str__(self):
+        return f"Pregunta {self.order}: {self.text}"
+    
+class EmailQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'email'
+    text = models.CharField(max_length=320, verbose_name='Pregunta', blank=False, null=False)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'email_question' #Se recomienda sin espacios, porque!
+        constraints = [
+            models.UniqueConstraint(fields=['order', 'form_id_id'], name='unique_order_per_form')
+        ] 
+        #garantiza que no se repitan numeros de pregunta dentro del form lo que evita que se repitan preguntas en el mismo formulario
+
+    def __str__(self):
+        return f"Pregunta {self.order}: {self.text}"
+    
+class ScaleQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'scale'
+    text = models.CharField(max_length=320, verbose_name='Pregunta', blank=False, null=False)
+    min_value = models.IntegerField(verbose_name='Valor mínimo', default=1)
+    max_value = models.IntegerField(verbose_name='Valor máximo', default=5)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+    
+    class Meta:
+        db_table = 'Scale question'
+    
+    def __str__(self):
+        return f"Pregunta {self.order}: {self.text}"
+    
+class DateQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'date'
+    text = models.CharField(max_length=320, verbose_name='Pregunta', blank=False, null=False)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+    
+    class Meta:
+        db_table = 'Date question'
+    
+    def __str__(self):
+        return f"Pregunta {self.order}: {self.text}"
+    
+class URLQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'url'
+    text = models.CharField(max_length=320, verbose_name='Pregunta', blank=False, null=False)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+    
+    class Meta:
+        db_table = 'URL question'
+    
+    def __str__(self):
+        return f"Pregunta {self.order}: {self.text}"
+
+class FileQuestion(models.Model):
+    order = models.IntegerField(verbose_name='pregunta número', blank=False, null=False)
+    type = 'file'
+    text = models.CharField(max_length=320, verbose_name='Pregunta', blank=False, null=False)
+    is_required = models.BooleanField(verbose_name='¿Respuesta requerida?', default=1)
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+    
+    class Meta:
+        db_table = 'File question'
+        
+    def __str__(self):
+        return f"Pregunta {self.order}: {self.text}"
 
 class   SentForm(models.Model):
     form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
@@ -165,6 +268,12 @@ class   SentForm(models.Model):
     sended = models.DateTimeField(verbose_name='sended')
     answered = models.BooleanField(verbose_name='answered', default=False)
 
+    class Meta:
+        db_table = 'SentForm'
+        
+    def __str__(self):
+        return f" {self.form_id.name } sent to {self.user_id.email}"
+
 
 # Modelos de respuesta
 
@@ -172,14 +281,8 @@ class Answer(models.Model):
     """Modelo para representar respuestas a preguntas específicas."""
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="answers")
-    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
-    # question = models.ForeignKey(
-    #     Question, on_delete=models.CASCADE, related_name="answers"
-    # )
-    # content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    # object_id = models.PositiveIntegerField()
-    # response = GenericForeignKey('content_type', 'object_id')
-    
+    sent_form = models.ForeignKey(SentForm, on_delete=models.CASCADE)
+    is_valid = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -215,20 +318,74 @@ class SingleChoiceAnswer(models.Model):
     
     def __str__(self):
         return f"Single Choice Answer: {self.value}"
-
-# class Answer(models.Model):
-#     """Modelo para representar respuestas a preguntas específicas."""
-#     user = models.ForeignKey(
-#         User, on_delete=models.CASCADE, related_name="answers"
-#     )
-#     # question = models.ForeignKey(
-#     #     Question, on_delete=models.CASCADE, related_name="answers"
-#     # )
-#     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-#     object_id = models.PositiveIntegerField()
-#     response = GenericForeignKey('content_type', 'object_id')
     
-#     created_at = models.DateTimeField(auto_now_add=True)
+class MultipleChoiceAnswer(models.Model):
+    """Modelo para respuestas tipo Multiple Choice."""
+    value = models.JSONField(default=dict)
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    question_id = models.ForeignKey(MultipleChoiceQuestion, on_delete=models.CASCADE)
 
-#     def __str__(self):
-#         return f"Answer from {self.user} to '{self.question}'"
+    def __str__(self):
+        return f"Multiple Choice Answer: {self.value}"
+    
+class NumberAnswer(models.Model):
+    """Modelo para respuestas tipo Number."""
+    value = models.IntegerField(default=0)
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    question_id = models.ForeignKey(NumberQuestion, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Opinion Scale Answer: {self.value}"
+    
+class EmailAnswer(models.Model):
+    """Modelo para respuestas tipo selección única."""
+    value = models.EmailField(max_length=320, blank=True, null=True)
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name='email_answers')
+    question_id = models.ForeignKey(EmailQuestion, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"Email Answer: {self.value} for Question ID {self.question_id}"
+
+class ScaleAnswer(models.Model):
+	"""Modelo para respuestas tipo escala."""
+	value = models.IntegerField()
+	answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+	question_id = models.ForeignKey(ScaleQuestion, on_delete=models.CASCADE)
+	
+	def clean(self):
+		"""Valida que el valor esté dentro del rango de la pregunta."""
+		if not (self.question_id.min_value <= self.value <= self.question_id.max_value):
+			raise ValidationError(
+				f"El valor debe estar entre {self.question_id.min_value} y {self.question_id.max_value}."
+			)
+
+	def __str__(self):
+		return f"Scale Answer: {self.value}"
+
+class DateAnswer(models.Model):
+    """Modelo para respuestas tipo fecha."""
+    value = models.DateField()
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    question_id = models.ForeignKey(DateQuestion, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"Date Answer: {self.value}"
+    
+class URLAnswer(models.Model):
+    """Modelo para respuestas tipo URL."""
+    value = models.URLField()
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    question_id = models.ForeignKey(URLQuestion, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"URL Answer: {self.value}"
+    
+class FileAnswer(models.Model):
+    """Modelo para respuestas tipo archivo."""
+    value = models.FileField(upload_to='uploads/')
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    question_id = models.ForeignKey(FileQuestion, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"File Answer: {self.value}"
+

@@ -34,12 +34,9 @@ endif
 build: create-dirs pull-images
 	@echo "Building Docker images..."
 	@$(DOCKER_COMPOSE) build
-#	@chmod -R 777 data/log/
 	@$(DOCKER_COMPOSE) $(DC_RUN_APP) "python manage.py wait_for_db"
 	@rm -rf app/core/migrations/__pycache__/*
-	@if [ -f "app/core/migrations/0001_initial.py" ]; then \
-        rm "app/core/migrations/0001_initial.py"; \
-    fi
+	@rm app/core/migrations/0001_initial.py
 
 up:
 	@echo "Running setup tasks..."
@@ -81,9 +78,7 @@ fclean: clean
 	@docker-compose down --rmi all --volumes --remove-orphans
 	@docker system prune -a --volumes
 	@rm -rf app/core/migrations/__pycache__/*
-	@if [ -f "app/core/migrations/0001_initial.py" ]; then \
-        rm "app/core/migrations/0001_initial.py"; \
-    fi
+	@rm app/core/migrations/0001_initial.py
 	@echo "Deleted containers, images, and volumes."
 	@rm -rf $(DB_DIR)  $(LOG_DIR)
 	
