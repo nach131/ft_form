@@ -10,12 +10,14 @@ const switchTheme = () => {
         body.classList.add('light-theme');
         lightModeIcon.classList.remove('d-none');
         darkModeIcon.classList.add('d-none');
+        console.log('switched to dark theme');
     } else {
         // Switch to dark theme
         body.classList.remove('light-theme');
         body.classList.add('dark-theme');
         darkModeIcon.classList.remove('d-none');
         lightModeIcon.classList.add('d-none');
+        console.log('switched to light theme');
     }
 };
 

@@ -22,7 +22,8 @@
 	</style>
 	  <script>
         window.djangoStaticUrls = {
-            bootstrapChanges: "{% static 'styles/bootstrap_changes_white.css' %}",
+            bootstrapChangesWhite: "{% static 'styles/bootstrap_changes_white.css' %}",
+			bootstrapChangesBlack: "{% static 'styles/bootstrap_changes_black.css' %}",
             studentHomeStyles: "{% static 'styles/studentHome/cards/styles.css' %}",
             bootstrapCSS: "{% static 'bootstrap.min.css' %}",
             calendarIcon: "{% static 'styles/studentHome/cards/calendar2.svg' %}",
@@ -57,7 +58,7 @@
 		<i class="bi bi-brightness-high-fill theme-icon d-none" id="lightModeIcon"></i>
 	</header>
 
-		<user-forms></user-forms>
+		<user-forms theme="dark"></user-forms>
 	<script>
 		
 		const user_img = localStorage.getItem('user_img');
@@ -82,9 +83,9 @@
 		if (username) {
 			// Set the background image of the header element
 			const profile_name = document.getElementById('user-title');
-			profile_name.textContent = `${username} ${title}`
-
+			profile_name.textContent = `${username} ${title}`;
 		}
+		
 	</script>
 	<script src="{% static '/styles/studentHome/Header/logout.js' %}"></script>
 	<script src="{% static '/styles/studentHome/Header/theme.js' %}"></script>

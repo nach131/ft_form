@@ -18,9 +18,9 @@ class UserForms extends HTMLElement {
 	}
   
 	importStyles() {
-	  const generalBootstrap = document.createElement('link');
-	  generalBootstrap.setAttribute('rel', 'stylesheet');
-	  generalBootstrap.setAttribute('href', window.djangoStaticUrls.bootstrapChanges);
+	//   const generalBootstrap = document.createElement('link');
+	//   generalBootstrap.setAttribute('rel', 'stylesheet');
+	//   generalBootstrap.setAttribute('href', window.djangoStaticUrls.bootstrapChanges);
   
 	  const styleLink = document.createElement('link');
 	  styleLink.setAttribute('rel', 'stylesheet');
@@ -31,11 +31,11 @@ class UserForms extends HTMLElement {
 	  bootstrap.setAttribute('href', window.djangoStaticUrls.bootstrapCSS);
   
 	  this.shadow.appendChild(styleLink);
-	  this.shadow.appendChild(generalBootstrap);
+	//   this.shadow.appendChild(generalBootstrap);
 	  this.shadow.appendChild(bootstrap);
 	}
 	
-	addCard({ id, title, startDate, endDate, state, color, minutes, imageUrl }) {
+	addCard({ id, title, startDate, endDate, state, color, minutes, imageUrl, theme_color }) {
 		const GridOfCards = this.container.querySelector('#appendCardsHere');
 	
 		if (GridOfCards) {
@@ -88,7 +88,7 @@ class UserForms extends HTMLElement {
                     <div class="row ms-2 me-2 mt-5">
                         <div class="col-md-12 d-flex justify-content-end align-items-end mt-3">
                           
-                            <button onclick="window.location.href='https://example.com?formid=${id}';" type="button" class="btn " style="background-color: ${color}; border 0px; font-weight: bold; color: white;">Enter</button>
+                            <button onclick="window.location.href='http://localhost:8000/answerForm?formid=${id}';" type="button" class="btn " style="background-color: ${color}; border 0px; font-weight: bold; color: white;">ENTER</button>
                         </div>
                     </div>
 			`;
@@ -183,6 +183,23 @@ class UserForms extends HTMLElement {
 	connectedCallback() {
 		const baseUrl = window.location.origin; 
 		const userId = localStorage.getItem('id'); 
+		const theme = this.getAttribute('theme');
+		let theme_color = '#f8f9fa';
+		const generalBootstrap = document.createElement('link');
+
+		console.log('THEME', theme);
+		if (theme === 'light') {
+			generalBootstrap.setAttribute('rel', 'stylesheet');
+			generalBootstrap.setAttribute('href', window.djangoStaticUrls.bootstrapChangesBlack);
+			this.shadow.appendChild(generalBootstrap);
+		}
+		else {
+			generalBootstrap.setAttribute('rel', 'stylesheet');
+			generalBootstrap.setAttribute('href', window.djangoStaticUrls.bootstrapChangesWhite);
+			this.shadow.appendChild(generalBootstrap);
+		}
+		
+
 
 
 		const url = `${baseUrl}/api/user-forms/${userId}/`;
@@ -200,6 +217,7 @@ class UserForms extends HTMLElement {
 			})
 			.then(data => {
 				data.forEach(element => {
+					console.log(element);
 					this.addCard({
 						id: element.id,
 						title: element.form_details.name,
@@ -207,7 +225,8 @@ class UserForms extends HTMLElement {
 						endDate: "No End Date",
 						state: element.is_new ? 'New' : 'Normal',
 						color: localStorage.getItem('color'),
-						imageUrl: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png'
+						imageUrl: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png',
+						theme_color: theme_color
 					})
 				});
 				
