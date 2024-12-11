@@ -15,14 +15,14 @@ from .permissions import IsUserOfSentForm
 
 # Vista de un SentForm especifico defindo por sent_form_id de un usuario especifico definido por user_id
 class SentFormView(APIView):
-    # permission_classe = [IsAuthenticated]
+    permission_classe = [IsAuthenticated]
 
     # Este metodo get obtiene la informacion del formulario y las preguntas relacionadas con el
     #de esta manera envía esa informacion al endpoint
     def get(self, request, user_id, sent_form_id):
         # Asegura que el usuario se ha autenticado y el formulario va dirigido a el
-        # if request.user.id != user_id:
-        #     raise PermissionDenied("No tienes acceso a este formulario")
+        if request.user.id != user_id:
+            raise PermissionDenied("No tienes acceso a este formulario")
         try:
             sent_form = SentForm.objects.get(id= sent_form_id, user_id=user_id)
         except SentForm.DoesNotExist:
@@ -251,12 +251,12 @@ class SentFormView(APIView):
 
 
 class   FormsByUserView(APIView):
-    # permission_classe = [IsAuthenticated]
+    permission_classe = [IsAuthenticated]
 
     def get(self, request, user_id):
         # Asegura que el usuario se ha autenticado y estos formularios van dirigidos a el
-        # if request.user.id != user_id:
-        #     raise PermissionDenied("No tienes acceso a estos formularios")
+        if request.user.id != user_id:
+            raise PermissionDenied("No tienes acceso a estos formularios")
         try:
             user_forms   = SentForm.objects.filter(user_id=user_id, sended__lte=now())
         except SentForm.DoesNotExist:
