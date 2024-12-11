@@ -59,21 +59,21 @@ function renderQuestionaire(data){
 		let questionElement = createQuestionElement(question, 'text');
 		let questionContainer = document.createElement('div');
 		questionContainer.appendChild(questionElement);
-		questionElements.push({ element: questionContainer, order: question.order });
+		questionElements.push({ element: questionContainer, order: question.order , type: 'text' , id: question.id , response: ''});
 	  });
 	  
 	  data.boolean_questions.forEach((question) => {
 		let questionElement = createQuestionElement(question, 'boolean');
 		let questionContainer = document.createElement('div');
 		questionContainer.appendChild(questionElement);
-		questionElements.push({ element: questionContainer, order: question.order });
+		questionElements.push({ element: questionContainer, order: question.order,  type: 'boolean' , id: question.id , response: '' });
 	  });
 	  
 	  data.option_questions.forEach((question) => {
 		let questionElement = createQuestionElement(question, 'option');
 		let questionContainer = document.createElement('div');
 		questionContainer.appendChild(questionElement);
-		questionElements.push({ element: questionContainer, order: question.order });
+		questionElements.push({ element: questionContainer, order: question.order , type: 'option' , id: question.id , response: [] });
 	  });
 
 	  questionElements.sort((a, b) => a.order - b.order);
@@ -98,7 +98,13 @@ function renderQuestionaire(data){
 		  nextButton.addEventListener('click', (event) => {
 			event.preventDefault();
 			if (index < questionElements.length - 1) {
-			  showQuestion(index + 1);
+				//questionElements[index].response = shadow.querySelector('#response').value;
+			  	showQuestion(index + 1);
+			}else if (index === questionElements.length - 1){
+				//questionElements[index].response = shadow.querySelector('#response').value;
+				let responses = questionElements.map((item => {
+
+				}));
 			}
 		  });
 		}

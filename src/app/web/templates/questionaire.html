@@ -11,16 +11,154 @@
 	
 </head>
 <body>
-    <style>
-        body{
-            background-color:  black;
-        }
-    </style>
+	<style>
+		body {
+		margin: 0;
+		color: #000;
+		overflow: hidden;
+		}
 
-    <!-- <text-tag minlength="10" maxlength="100" question="que te gusta de 42?" numQuestion="1" ></text-tag> -->
-    <!-- <binary-tag></binary-tag>     -->
+		img {
+		background: transparent;
+		}
+
+		h1,
+		p {
+		margin-top: 0.333rem;
+		margin-bottom: 0.333rem;
+		}
+
+		.container {
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		text-align: center;
+		}
+
+		@keyframes slide-transparency {
+		0% {
+			opacity: 0;
+		}
+		50% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0;
+		}
+		}
+
+		.animate-opacity {
+		animation-name: slide-transparency;
+		animation-iteration-count: infinite;
+		}
+
+		.freq-5 {
+		animation-duration: 5s;
+		}
+
+		.freq-6 {
+		animation-duration: 6.33s;
+		}
+
+		.freq-7 {
+		animation-duration: 7s;
+		}
+
+		.freq-8 {
+		animation-duration: 8.88s;
+		}
+
+		.freq-9 {
+		animation-duration: 9s;
+		}
+
+		.freq-10 {
+		animation-duration: 10.17s;
+		}
+
+		.delay-2 {
+		animation-delay: 1.33s;
+		}
+
+		.delay-4 {
+		animation-delay: 2.11s;
+		}
+
+		.bg {
+		width: 100vw;
+		height: 100vh;
+		position: fixed;
+		top: 0;
+		left: 0;
+		background: #000;
+		z-index: -1000;
+		}
+
+		.z-1,
+		.z-2,
+		.z-3 {
+		position: absolute;
+		width: 150vw;
+		height: 150vw;
+		left: -50vw;
+		top: -50vw;
+		transform-origin: center;
+		}
+
+		.tile {
+		overflow: hidden;
+		position: absolute;
+		opacity: 0;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-repeat: repeat;
+		background-size: 512px 512px;
+		}
+
+		.top-left {
+		background-image: url("{% static 'webComponents/img/topleft.png' %}");
+		}
+
+		.top-right {
+		background-image: url("{% static 'webComponents/img/topright.png' %}");
+		}
+
+		.bottom-left {
+		background-image: url("{% static 'webComponents/img/bottomleft.png' %}");
+		}
+
+		.bottom-right {
+		background-image: url("{% static 'webComponents/img/bottomright.png' %}");
+		}
+	</style>
+
+	<div class="bg">
+		<div class="z-3">
+		<div class="tile top-left animate-opacity freq-5"></div>
+		<div class="tile top-right animate-opacity freq-9"></div>
+		<div class="tile bottom-left animate-opacity freq-7"></div>
+		<div class="tile bottom-right animate-opacity freq-10"></div>
+		</div>
+		<div class="z-2">
+		<div class="tile top-left animate-opacity freq-9 delay-2"></div>
+		<div class="tile top-right animate-opacity freq-5 delay-2"></div>
+		<div class="tile bottom-left animate-opacity freq-6 delay-4"></div>
+		<div class="tile bottom-right animate-opacity freq-10 delay-4"></div>
+		</div>
+		<div class="z-1">
+		<div class="tile top-left animate-opacity freq-7 delay-2"></div>
+		<div class="tile top-right animate-opacity freq-5 delay-4"></div>
+		<div class="tile bottom-left animate-opacity freq-9 delay-2"></div>
+		<div class="tile bottom-right animate-opacity freq-5 delay"></div>
+		</div>
+	</div>
+	
 	<script type="module" src="{% static 'webComponents/binaryInput.js'%}"></script>
 	<script type="module" src="{% static 'webComponents/textFormcomponent.js'%}"></script>
 	<script type="module" src="{% static 'webComponents/handleQuestionaire.js'%}"></script>
+	<script src="{% static 'webComponents/backgroundAnimation.js' %}"></script>
 </body>
 </html>
