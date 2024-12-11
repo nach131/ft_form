@@ -11,11 +11,36 @@ import requests
 from django.conf import settings
 from oauthlib.oauth2 import BackendApplicationClient
 from requests_oauthlib import OAuth2Session
+from django.db import transaction
 
 from core import models
 from .models import (Form, TextQuestion, BooleanQuestion, OptionQuestion, MultipleChoiceQuestion,
                     EmailQuestion, NumberQuestion, ScaleQuestion, DateQuestion, URLQuestion,
                     FileQuestion, SentForm, Campus, Cursus)
+
+# Acción que permite duplicar un formulario
+@admin.action(description='Duplicate a Form')
+def duplicate_form(modeladmin, request, queryset):
+    for form in queryset:
+        # transaction atomic asegura que todas las operaciones dentro del bloque se ejecuten
+        #por completo y, si ocurre un error, se deshacen todas juntas
+        with transaction.atomic():
+            original_form = form
+            new_form = Form.objects.create(
+                name = f"{form.name} (copia)",
+                favourite = form.favourite,
+                message_end_form = form.message_end_form,
+                image = form.image
+            )
+
+            for question_model in [TextQuestion, BooleanQuestion, OptionQuestion, MultipleChoiceQuestion,
+                                   EmailQuestion, NumberQuestion, ScaleQuestion, DateQuestion, URLQuestion,
+                                   FileQuestion]:
+                questions = question_model.objects.filter(form_id=original_form)
+                for question in questions:
+                    question.id = None
+                    question.form_id = new_form
+                    question.save()
 
 
 class TextQuestionInLine(admin.TabularInline):
@@ -64,8 +89,11 @@ class   FormAdmin(admin.ModelAdmin):
     inlines = [TextQuestionInLine, BooleanQuestionInLine, OptionQuestionInLine, EmailQuestionInLine,
             ScaleQuestionInLine, DateQuestionInLine, URLQuestionInLine, FileQuestionInLine,
             MultipleChoiceQuestionInLine, NumberQuestionInLine]
+    actions = [duplicate_form]
+    
 
 admin.site.register(Form, FormAdmin)
+admin.site.add_action(duplicate_form)
 admin.site.register(TextQuestion)
 admin.site.register(BooleanQuestion)
 admin.site.register(OptionQuestion)
