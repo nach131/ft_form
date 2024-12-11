@@ -15,10 +15,11 @@ urlpatterns = [
     path('err/', err, name='err'),
     path("", Login, name='login'),
     path('login/redirect', login.redirect_api, name="redirect_api"),
+    path('logout', login.logout_view, name="logout_view"),
     path('login/callback', CallbackFront, name='front_callback'),
     path('login/handleCallback', Callback42API.as_view(), name="callback"),
     path('studentHome', StudentHome, name='studenthome'),
     path('staffHome', StaffHome, name='staffHome'),
-	path('answerForm', answer_form, name='answer_form'),
+	  path('answerForm', answer_form, name='answer_form'),
   #  path('login/callback', Callback42API.as_view(), name="callback"),
 ]

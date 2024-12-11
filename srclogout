@@ -1,0 +1,15 @@
+DB_HOST=db_form
+DB_NAME=formdb
+DB_USER=devuser
+DB_PASS=tomate
+SECRET_KEY=tomate
+DJANGO_SETTINGS_MODULE=app.settings
+DOMAIN=domain.com
+ALLOWED_HOSTS=192.168.1.38,domain.com,localhost
+# CORS_ALLOWED_ORIGINS=https://domain.com/
+UID=u-s4t2ud-49dda93360bbb6e3fafcff4fad7f567b99e9a2ab0aa0ad2e113577162c0046a1
+SECRET=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
+NEXT_SECRET=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
+URL_DEBUG=https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-49dda93360bbb6e3fafcff4fad7f567b99e9a2ab0aa0ad2e113577162c0046a1&redirect_uri=http://localhost:8000/login/callback&response_type=code
+URL_DEPLOY=https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-49dda93360bbb6e3fafcff4fad7f567b99e9a2ab0aa0ad2e113577162c0046a1&redirect_uri=http://localhost:8000/login/callback&response_type=code 
+REDIRECT_URI=http://localhost:8000/login/callback

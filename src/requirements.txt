@@ -7,6 +7,7 @@ gunicorn==22.0.0
 httpx==0.27.0
 django-cors-headers==4.4.0
 djangorestframework-simplejwt
+djangorestframework-simplejwt[blacklist]
 requests>=2.0.0
 oauthlib==3.2.2
 requests-oauthlib==1.3.1

@@ -13,6 +13,7 @@ import string
 import requests
 
 from django.contrib.auth import authenticate, login as django_login
+from django.contrib.auth import logout as django_logout
 from django.contrib.auth.models import AnonymousUser
 from django.conf import settings
 from django.shortcuts import redirect
@@ -73,12 +74,26 @@ class Callback42API(APIView):
                 raise Exception("No users found with the same username")
             except User.MultipleObjectsReturned:
                 raise Exception("Multiple users found with the same username")
+            user.is_active = True
+            #####
+            # refresh_intra_token = RefreshToken(intra_token)
+            # BLOCKLIST.add(str(intra_token))  # Replace with your blocklist logic (e.g., saving to DB/Redis)
+            # refresh_intra_token.blacklist()  # Use if you enabled Django REST Framework SimpleJWT's blacklist app
+            #####
             django_login(request, user)
             refresh_token = RefreshToken.for_user(user)
             formatResponse = data_res_front | {
                 'refresh_token': str(refresh_token),
-                'access': str(refresh_token.access_token)
-            }
+                'access': str(refresh_token.access_token),
+                'intra_token': str(intra_token), 
+                #USER ID!!!
+
+             }
+                        #####
+            # refresh_intra_token = RefreshToken(intra_token)
+            # BLOCKLIST.add(str(intra_token))  # Replace with your blocklist logic (e.g., saving to DB/Redis)
+            # refresh_intra_token.blacklist()  # Use if you enabled Django REST Framework SimpleJWT's blacklist app
+            #####
             return JsonResponse(formatResponse)
         except Exception as e:
             return JsonResponse({'Error': str(e)}, status=400)
@@ -157,4 +172,32 @@ def get42(url, vars, auth):
         'Authorization': 'Bearer ' + auth
     }
     response = requests.request("GET", url, headers=headers)
+    return response
+
+# Example token blocklist (you may use a database or Redis for scalability)
+BLOCKLIST = set()
+
+@api_view(['POST'])
+def logout_view(request):
+    # Get the refresh token from the request
+      
+    refresh_token = request.data.get('refresh_token')
+    # 'intra_token'
+    user = User.objects.get(username=request.data.get('username'))
+    if refresh_token:
+        try:
+            # Blacklist the token
+            token = RefreshToken(refresh_token)
+            # BLOCKLIST.add(str(token))  # Replace with your blocklist logic (e.g., saving to DB/Redis)
+            token.blacklist()  # Use if you enabled Django REST Framework SimpleJWT's blacklist app
+        except Exception as e:
+            return JsonResponse({'detail': 'Invalid token'}, status=400)
+    
+    # Log out the user from Django (clears session data)
+    django_logout(request, user)
+    
+    # Clear the refresh token cookie
+    response = JsonResponse({'detail': 'Successfully logged out'})
+    response.delete_cookie('refresh_token')
+    
     return response
