@@ -61,7 +61,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     intra_id = models.PositiveIntegerField(default=0)
 #    gender = 
     name = models.CharField(max_length=100, blank=True, null=True)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     is_cancel = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_42_staf = models.BooleanField(default=False)

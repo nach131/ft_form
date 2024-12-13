@@ -35,6 +35,7 @@ if (code && state){
         }else{
             console.log('Error: Failed to obtain access-tokens', data);
             console.log('Access-token:', data.access_token);
+            window.location.href = 'http://localhost:8000/';
         }
     })
     .catch(error => {

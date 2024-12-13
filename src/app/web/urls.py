@@ -17,8 +17,10 @@ urlpatterns = [
     path('login/redirect', login.redirect_api, name="redirect_api"),
     path('login/callback', CallbackFront, name='front_callback'),
     path('login/handleCallback', Callback42API.as_view(), name="callback"),
+    path('logout', login.logout_view, name="logout_view"),
     path('studentHome', StudentHome, name='studenthome'),
     path('staffHome', StaffHome, name='staffHome'),
 	path('answerForm', answer_form, name='answer_form'),
+    path('check-auth', login.check_auth, name="check_auth"),
   #  path('login/callback', Callback42API.as_view(), name="callback"),
 ]

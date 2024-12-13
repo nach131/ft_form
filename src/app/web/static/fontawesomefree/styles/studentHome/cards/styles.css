@@ -1,0 +1,183 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&display=swap');
+
+.card-tall {
+	height: 400px;
+	/* Set the height of the card */
+}
+
+.card-body {
+	flex-grow: 1;
+	/* Allow the card body to take up the remaining space */
+}
+
+.card-header img {
+	width: 100%;
+	/* Make the image take up the full width */
+	height: auto;
+	/* Maintain aspect ratio */
+}
+
+.card-header {
+	background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s');
+	background-size: cover;
+	/* Ensures the image covers the entire header */
+	background-repeat: no-repeat;
+	/* Ensures the image does not repeat */
+	background-position: center;
+	/* Centers the background image */
+}
+
+.star-container {
+	border-radius: 50%;
+	background: rgb(240, 240, 240) ;
+	height: 50px;
+	width: 50px;
+	position: absolute;
+}
+
+#star {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 3;
+	/* Ensures the checkbox is above the images */
+	opacity: 0;
+	/* Hide the checkbox */
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	/* Make it clickable */
+}
+
+#star-selected,
+#star-unselected {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 30px;
+	height: 30px;
+}
+
+.star-img {
+	width: 30px;  /* Adjust size of the stars */
+	height: 30px;
+	z-index: 2;  /* Ensure the stars are above the checkbox */
+	position: absolute;
+}   
+
+.checkbox-behind {
+	position: absolute;
+
+	opacity: 0; 
+	z-index: 100;  /* Ensure the checkbox is behind the stars */
+}
+
+.titles {
+color: #000;
+font-family: "Inter", sans-serif;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
+#card-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.bento-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+	gap: 20px; /* Space between the cards */
+}
+
+.card-title {
+	font-size: 1.2em;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+
+
+}
+
+#add-form {
+	filter:opacity(0.1);
+}
+
+#add-form:hover {
+	filter:opacity(0.5);
+}
+
+
+
+
+.card-title {
+	display: flex !important;
+	align-items: center !important;
+}
+
+.col {
+	text-align: left !important; /* Left-aligns all content inside the column */
+  }
+  
+  #dates {
+	display: flex;
+	justify-content: right;
+  }
+  
+
+.badge {
+    margin: 5px !important;
+    font-size: 1.1em !important;
+}
+
+.custom-gray-badge {
+    background-color: rgb(191, 191, 191);
+  }
+
+  abbr {
+	position: relative;
+	cursor: help;
+}
+
+abbr:hover::after {
+	content: attr(title);
+	position: absolute;
+	right:  100%; /* Make it appear on the left */
+	background-color: #333;
+	color: #fff;
+	padding: 5px 10px;
+	border-radius: 4px;
+	white-space: nowrap;
+	font-size: 12px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+	z-index: 0;
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 0.2s ease-in-out; /* Smooth fade-in */
+}
+
+abbr::after {
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.2s ease-in-out;
+}
+
+
+/* Hide the scrollbar but keep functionality */
+::-webkit-scrollbar {
+    width: 0px;   /* Vertical scrollbar */
+    height: 0px;  /* Horizontal scrollbar */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: transparent;  /* Make the thumb invisible */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;  /* Make the track invisible */
+  }
+  
