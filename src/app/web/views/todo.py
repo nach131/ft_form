@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
 import json
 
 from django.views import View
@@ -27,6 +29,8 @@ def Login(request):
 def CallbackFront(request):
     return render(request, 'calback42.html')
 
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
 def StudentHome(request):
     return render(request, 'studenthome.html')
 

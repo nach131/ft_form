@@ -20,16 +20,49 @@ from django.shortcuts import redirect
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.exceptions import AuthenticationFailed
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status
+from django.templatetags.static import static
 import re
 
 from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
+# View to check if the user is authenticated
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def check_auth(request):
+    try:
+        data = json.loads(request.body)  # Parse the JSON body
+        username = data.get('username')  # Get the username from the request
+        print("USERNAME: ", username)
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+
+    if not username:
+        return JsonResponse({'error': 'Username is required'}, status=400)
+
+    try:
+        user = User.objects.get(username=username)  # Check if the user exists
+        if user.is_authenticated:
+            print("AUTHENTICATED")
+            return JsonResponse({
+                'is_authenticated': True,
+                # 'is_staff': str(user.is_staff),  # Return 'true'/'false' as string
+            })
+        else:
+            return JsonResponse({
+                'is_authenticated': False
+            })
+    except User.DoesNotExist:
+        return JsonResponse({'error': 'User not found'}, status=404)
+
+
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def redirect_api(request):
     state = gen_state()
     logger.info("Redirect URI: %s", settings.REDIRECT_URI)
@@ -51,6 +84,9 @@ def gen_state():
 
 class Callback42API(APIView):
     """ """
+
+    permission_classes = [AllowAny]
+
     def get(self, request):
 
         code = request.GET.get('code')
@@ -81,11 +117,17 @@ class Callback42API(APIView):
             # refresh_intra_token.blacklist()  # Use if you enabled Django REST Framework SimpleJWT's blacklist app
             #####
             django_login(request, user)
+            # Test user authentication immediately after login
+            if request.user.is_authenticated:
+                print("User authenticated successfully:", request.user.username)
+            else:
+                print("User authentication failed")
             refresh_token = RefreshToken.for_user(user)
             formatResponse = data_res_front | {
                 'refresh_token': str(refresh_token),
                 'access': str(refresh_token.access_token),
                 'intra_token': str(intra_token), 
+                'id': user.id
                 #USER ID!!!
 
              }
@@ -110,10 +152,10 @@ def saveUser(token):
         if not exist:
             user = User(username=user_data.get('login'), is_42_staf=user_data.get('staff?'), email=user_data.get('email'), intra_id=user_data.get('id'))
             user.save()
-        user_img = None
+        user_img = None # here the default
         if user_data['image']['link']:
             user_img = user_data['image']['link']
-        print("BEFORECOAL: ", user_img)
+#        print("BEFORECOAL: ", user_img)
         coal_data = getCoalition(defaultUser(user_data.get('login'), user_data.get('staff?'), user_img), user_data.get('login'), token)
         # piscine / student / alumni
         return JsonResponse(coal_data)
@@ -129,7 +171,7 @@ def defaultUser(login, is_staff, user_img):
         'coalition': None,
         'color': "#00BABC",
         'coalition_img': None,
-        'title': "No name"      
+        'title': ""     
     }
     return default
 
@@ -177,11 +219,13 @@ def get42(url, vars, auth):
 # Example token blocklist (you may use a database or Redis for scalability)
 BLOCKLIST = set()
 
-@api_view(['POST'])
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
 def logout_view(request):
     # Get the refresh token from the request
       
     refresh_token = request.data.get('refresh_token')
+    print("LOGOUT: ", request.data.get('refresh_token'))
     # 'intra_token'
     user = User.objects.get(username=request.data.get('username'))
     if refresh_token:

@@ -29,12 +29,12 @@ DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 DOMAIN = os.environ.get('DOMAIN', '')
 
 if DEBUG:
-    SITE_URL = 'http://localhost:8000'
-    REDIRECT_URL = 'http://localhost:8000/login/callback'
+    SITE_URL = 'http://{DOMAIN}'
+    REDIRECT_URL = 'http://{DOMAIN}/login/callback'
     URL_USER = os.environ.get('URL_DEBUG')
 else:
-    SITE_URL = 'http://transcendence.com.de'
-    REDIRECT_URL = 'http://transcendence.com.de/login/42'
+    SITE_URL = 'http://{DOMAIN}'
+    REDIRECT_URL = 'http://{REDIRECT_URi}'
     URL_USER = os.environ.get('URL_DEPLOY')
 
 ALLOWED_HOSTS = []
@@ -48,8 +48,7 @@ ALLOWED_HOSTS.extend(
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    f'https://{DOMAIN}',
-    f'https://www.{DOMAIN}',
+    f'http://{DOMAIN}',
 ]
 
 # SSL
@@ -57,8 +56,7 @@ CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
 CSRF_TRUSTED_ORIGINS = [
-    f'https://{DOMAIN}',
-    f'https://www.{DOMAIN}',
+    f'http://{DOMAIN}',
 ]
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
@@ -91,6 +89,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
 ]
 
 
@@ -202,7 +201,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/static/'
+STATIC_URL = '/app/web/static/'
 MEDIA_URL = '/static/media/'
 
 MEDIA_ROOT = '/vol/web/media'
@@ -219,6 +218,10 @@ REST_FRAMEWORK = {
         'core.authentication.Intra42Authentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',  # Restricts access to authenticated users
     ],
 }
 
